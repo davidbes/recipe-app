@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { store } from 'store/store';
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from 'serviceWorker';
+import 'i18n/config';
 import App from 'App';
 
 ReactDOM.render(
