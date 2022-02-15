@@ -1,0 +1,71 @@
+.navbar {
+	display: flex;
+	flex-flow: row nowrap;
+	background-color: white;
+	justify-content: space-between;
+	padding: 0.5rem 2.4rem;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+	.title {
+		font-weight: 800;
+		font-size: 1.4rem;
+		display: flex;
+		align-items: center;
+		flex: 1;
+	}
+
+	ul {
+		display: flex;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		gap: 1rem;
+		align-items: center;
+		justify-content: center;
+		a {
+			text-decoration: none;
+			display: flex;
+			gap: 0.4rem;
+		}
+		flex: 1;
+	}
+
+	.profile-section {
+		display: flex;
+		justify-content: end;
+		align-items: center;
+		gap: 0.8rem;
+		flex: 1;
+
+		a {
+			display: flex;
+			align-items: center;
+			gap: 0.8rem;
+			img {
+				height: 30px;
+				width: 30px;
+				border-radius: 50%;
+			}
+
+			span {
+				font-weight: bold;
+				font-size: 16px;
+				color: black;
+			}
+
+			&:hover {
+				span {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+
+	.login-section {
+		display: flex;
+		justify-content: end;
+		align-items: center;
+		gap: 1.5rem;
+		flex: 1;
+	}
+}

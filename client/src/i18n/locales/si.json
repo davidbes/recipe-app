@@ -1,3 +1,8 @@
 {
-	"hello": "Pozdravljen Svet!"
+	"discover": "Odkrij",
+	"cookbooks": "Kuharske knjige",
+	"saved": "Shranjeno",
+	"about": "O nas",
+	"login": "Vpis",
+	"register": "Registriraj"
 }

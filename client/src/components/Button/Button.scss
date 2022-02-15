@@ -1,0 +1,164 @@
+button {
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 10px 32px;
+	border-radius: 30px;
+	outline: none;
+	border: none;
+	cursor: pointer;
+
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 100%;
+	letter-spacing: 0.02em;
+
+	&.info {
+		&.primary {
+			background-color: #567838;
+			color: #f0f6eb;
+
+			&:hover {
+			}
+			&:active {
+			}
+			&:disabled {
+			}
+		}
+
+		&.secondary {
+			background-color: white;
+			color: #567838;
+			border: 2px #567838 solid;
+
+			&:focus {
+			}
+			&:hover {
+			}
+			&:active {
+			}
+			&:disabled {
+			}
+		}
+
+		&.tertiary {
+			background-color: white;
+			color: #567838;
+
+			&:focus {
+			}
+			&:hover {
+			}
+			&:active {
+			}
+			&:disabled {
+			}
+		}
+	}
+
+	&.neutral {
+		&.primary {
+			background-color: #505050;
+			color: #ffffff;
+
+			&:focus {
+			}
+			&:hover {
+			}
+			&:active {
+			}
+			&:disabled {
+			}
+		}
+
+		&.secondary {
+			background-color: white;
+			color: #505050;
+			border: 2px #505050 solid;
+
+			&:focus {
+			}
+			&:hover {
+			}
+			&:active {
+			}
+			&:disabled {
+			}
+		}
+
+		&.tertiary {
+			background-color: white;
+			color: #505050;
+
+			&:hover {
+				background-color: rgb(182, 182, 182);
+			}
+
+			&:focus {
+			}
+			&:hover {
+			}
+			&:active {
+			}
+			&:disabled {
+			}
+		}
+	}
+
+	&.danger {
+		&.primary {
+			background-color: #505050;
+			color: #ffffff;
+
+			&:focus {
+			}
+			&:hover {
+			}
+			&:active {
+			}
+			&:disabled {
+			}
+		}
+
+		&.secondary {
+			background-color: white;
+			color: #505050;
+			border: 2px #505050 solid;
+
+			&:focus {
+			}
+			&:hover {
+			}
+			&:active {
+			}
+			&:disabled {
+			}
+		}
+
+		&.tertiary {
+			background-color: white;
+			color: #505050;
+
+			&:hover {
+				background-color: rgb(182, 182, 182);
+			}
+
+			&:focus {
+			}
+			&:hover {
+			}
+			&:active {
+			}
+			&:disabled {
+			}
+		}
+	}
+
+	&.small {
+		padding: 8px 24px;
+		font-size: 14px;
+	}
+
+	&.icon {
+		padding: 7px 8px;
+	}
+}

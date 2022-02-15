@@ -1,16 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import { store } from 'store/store';
 import * as serviceWorker from 'serviceWorker';
+import AppRoutes from 'AppRoutes';
 import 'i18n/config';
-import App from 'App';
+import './sass/_fonts.scss';
+import './index.scss';
 
 ReactDOM.render(
 	<React.StrictMode>
-		<Provider store={store}>
-			<App />
-		</Provider>
+		<BrowserRouter>
+			<Provider store={store}>
+				<AppRoutes />
+			</Provider>
+		</BrowserRouter>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

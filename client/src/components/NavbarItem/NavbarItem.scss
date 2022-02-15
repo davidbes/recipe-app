@@ -1,0 +1,14 @@
+.navbar-item {
+	display: flex;
+	gap: 0.8rem;
+	color: black;
+	align-items: center;
+	padding: 8px 12px;
+	border-radius: 4px;
+	font-weight: bold;
+
+	&:hover {
+		background-color: rgba(black, 0.2);
+		transition: 0.3s ease-in-out;
+	}
+}
