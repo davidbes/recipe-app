@@ -1,3 +1,5 @@
+@use '../../sass/variables' as *;
+
 button {
 	flex-direction: row;
 	align-items: flex-start;
@@ -14,14 +16,14 @@ button {
 
 	&.info {
 		&.primary {
-			background-color: #567838;
-			color: #f0f6eb;
+			background-color: $leaf-base;
+			color: $bw-100;
 
 			&:hover {
+				background-color: $leaf-light-5;
 			}
+
 			&:active {
-			}
-			&:disabled {
 			}
 		}
 
@@ -36,8 +38,6 @@ button {
 			}
 			&:active {
 			}
-			&:disabled {
-			}
 		}
 
 		&.tertiary {
@@ -50,8 +50,10 @@ button {
 			}
 			&:active {
 			}
-			&:disabled {
-			}
+		}
+
+		&:disabled {
+			opacity: 0.5;
 		}
 	}
 
