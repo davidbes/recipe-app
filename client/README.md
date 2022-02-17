@@ -29,6 +29,7 @@ This will ensure that files are as readable as possible.
 - All props should be destructurized when component is defined and not in the code block (if used of course).
 - Component is exported at the end of the file.
 - Each component has it's own file.
+- All functionality should be wrapped within hooks to ensure the stablity of the app
 
 Example of a component:
 
@@ -39,7 +40,9 @@ interface Props {
     prop2: type;
 }
 
-const Component: Props => ({prop1, prop2}:Props) => {
+const Component: FC<Props> => ({prop1, prop2}:Props) => {
+
+    // hooks
 
     return <div>{prop1} and {prop2}</div>
 }
