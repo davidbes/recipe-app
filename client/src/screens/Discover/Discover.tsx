@@ -1,7 +1,7 @@
 import { ScreenWrapper } from 'hoc';
 
 const Discover = () => {
-	return <ScreenWrapper>Hello world</ScreenWrapper>;
+	return <ScreenWrapper></ScreenWrapper>;
 };
 
 export default Discover;

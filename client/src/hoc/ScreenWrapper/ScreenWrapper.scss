@@ -1,0 +1,16 @@
+.page {
+	position: absolute;
+	inset: 0 0 0 0;
+	display: flex;
+	flex-flow: column nowrap;
+
+	.content {
+		flex: 1;
+		position: relative;
+		align-self: center;
+		margin-top: 4rem;
+		padding: 2rem 1rem;
+		max-width: 900px;
+		width: 100%;
+	}
+}
