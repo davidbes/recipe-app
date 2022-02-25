@@ -1,0 +1,41 @@
+@use '../../sass/variables' as *;
+
+.snackbar {
+	padding: 12px;
+	box-shadow: 0px 4px 4px #00000019;
+	max-width: 320px;
+	gap: 10px;
+	border-left: 12px solid $cardinal-dark-5;
+	border-radius: 6px;
+	display: flex;
+	align-items: center;
+	font-size: 18px;
+	font-weight: 600;
+	cursor: pointer;
+
+	&.attention {
+		color: $canary-dark-10;
+		border-color: $canary-dark-10;
+	}
+	&.error {
+		color: $cardinal-dark-5;
+		border-color: $cardinal-dark-5;
+	}
+	&.info {
+		color: $macau-dark-5;
+		border-color: $macau-dark-5;
+	}
+	&.success {
+		color: $leaf-dark-5;
+		border-color: $leaf-dark-5;
+	}
+
+	&:hover {
+		background-color: #00000023;
+	}
+
+	.icon-wrapper {
+		height: 20px;
+		width: 20px;
+	}
+}
