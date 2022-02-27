@@ -40,7 +40,7 @@ router.post('/register', validateRegister, async (req, res) => {
 		});
 	} catch (error) {
 		console.log('auth/register ERROR', error);
-		res.status(500).json('Server error');
+		res.status(500).json({ message: 'Server error occured!' });
 	}
 });
 
@@ -68,7 +68,7 @@ router.post('/login', validateLogin, async (req, res) => {
 		});
 	} catch (error) {
 		console.log('auth/login ERROR', error);
-		res.status(500).json('Server error');
+		res.status(500).json({ message: 'Server error occured!' });
 	}
 });
 
@@ -79,7 +79,7 @@ router.delete('/deleteUser', authorize, async (req, res) => {
 		res.json({ message: 'User successfully deleted' });
 	} catch (error) {
 		console.log('auth/deleteUser ERROR', error);
-		res.status(500).json('Server error');
+		res.status(500).json({ message: 'Server error occured!' });
 	}
 });
 
@@ -90,7 +90,7 @@ router.get('/user', authorize, async (req, res) => {
 		});
 	} catch (error) {
 		console.log('auth/user ERROR', error);
-		res.status(500).json('Server error');
+		res.status(500).json({ message: 'Server error occured!' });
 	}
 });
 

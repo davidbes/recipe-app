@@ -12,8 +12,8 @@ app.use(cors());
 
 // App routers
 app.use('/auth', require('./routes/auth'));
-app.use('/recipes', require('./routes/recipes'));
-app.use('/profile', require('./routes/profile'));
+app.use('/api/recipes', require('./routes/recipes'));
+app.use('/api/profile', require('./routes/profile'));
 
 // Connect to the database.
 mongoose.connect(
