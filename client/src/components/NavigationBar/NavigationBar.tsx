@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { Button, Icon, NavbarItem } from 'components';
 import './NavigationBar.scss';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from 'hooks';
 
 const NavigationBar: FC = () => {
-	const [auth, setAuth] = useState<boolean>(false);
 	const [expandedOptions, setExpandedOptions] = useState(false);
 
 	const { t } = useTranslation();
 
-	// get user data from auth (image, name)
+	const { isAuth, fullName, imageUrl } = useAppSelector((state) => state.auth);
 
 	return (
 		<div className='navbar'>
@@ -19,7 +19,7 @@ const NavigationBar: FC = () => {
 				<li>
 					<NavbarItem icon='discover' to='/discover' text={t('discover')} />
 				</li>
-				{auth && (
+				{isAuth && (
 					<>
 						<li>
 							<NavbarItem icon='book' to='/cookbooks' text={t('cookbooks')} />
@@ -33,18 +33,18 @@ const NavigationBar: FC = () => {
 					<NavbarItem icon='info' to='/about' text={t('about')} />
 				</li>
 			</ul>
-			{auth ? (
+			{isAuth ? (
 				<div className='profile-section'>
 					<Link to='/profile'>
-						<img src='https://picsum.photos/50' alt='Avatar' loading='lazy' />
-						<span>David Bester</span>
+						<img src={imageUrl} alt='Avatar' loading='lazy' />
+						<span>{fullName}</span>
 					</Link>
 
 					<div>
 						<Button
 							type='tertiary'
 							variation='neutral'
-							onClick={() => setAuth(!auth)}
+							onClick={() => console.log('Pressed icon')}
 							iconOnly
 						>
 							<Icon icon='arrowDown' size={20} />
@@ -53,9 +53,9 @@ const NavigationBar: FC = () => {
 				</div>
 			) : (
 				<div className='login-section'>
-					<Button onClick={() => setAuth(!auth)}>{t('login')}</Button>
+					<Button onClick={() => console.log('Login')}>{t('login')}</Button>
 					<span>or</span>
-					<Button type='secondary' onClick={() => setAuth(!auth)}>
+					<Button type='secondary' onClick={() => console.log('Register')}>
 						{t('register')}
 					</Button>
 				</div>

@@ -46,15 +46,19 @@ export const registerUser = createAsyncThunk(
 interface AuthState {
 	isAuth: boolean;
 	isLoading: boolean;
-	user: string;
+	userId: string;
 	error: Error | undefined;
+	fullName: string;
+	imageUrl: string;
 }
 
 const initialState = {
 	isAuth: false,
 	isLoading: false,
-	user: '',
+	userId: '',
 	error: undefined,
+	fullName: '',
+	imageUrl: '',
 } as AuthState;
 
 const authSlice = createSlice({
@@ -69,7 +73,7 @@ const authSlice = createSlice({
 	extraReducers: (builder): void => {
 		builder.addCase(registerUser.fulfilled, (state, { payload }): void => {
 			localStorage.setItem('token', payload.token);
-			state.user = payload.user;
+			state.userId = payload.user;
 			state.isAuth = true;
 			state.isLoading = false;
 		});

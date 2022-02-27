@@ -1,8 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import { authReducer } from 'features';
+import { authReducer, getRecipesReducer, snackbarReducer } from 'features';
+
 export const store = configureStore({
 	reducer: {
 		auth: authReducer,
+		recipesAll: getRecipesReducer,
+		snackbar: snackbarReducer,
 	},
 });
 

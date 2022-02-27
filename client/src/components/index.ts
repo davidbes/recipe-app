@@ -3,4 +3,6 @@ export { default as Icon } from './Icon/Icon';
 export type { IconType } from './Icon/Icon';
 export { default as NavbarItem } from './NavbarItem/NavbarItem';
 export { default as NavigationBar } from './NavigationBar/NavigationBar';
+export { default as RecipeCard } from './RecipeCard/RecipeCard';
 export { default as Snackbar } from './Snackbar/Snackbar';
+export { default as Spinner } from './Spinner/Spinner';

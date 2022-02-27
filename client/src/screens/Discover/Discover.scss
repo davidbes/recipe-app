@@ -1,0 +1,11 @@
+.items {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: start;
+	gap: 22px;
+	.center-container {
+		flex: 1;
+		display: flex;
+		justify-content: center;
+	}
+}
