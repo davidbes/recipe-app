@@ -1,0 +1,49 @@
+@use '../../sass/variables' as *;
+
+.authentication-modals {
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 2rem;
+
+	h1 {
+		font-size: 24px;
+		text-align: center;
+		color: $macau-dark-10;
+	}
+
+	.inputs-section {
+		display: flex;
+		flex-flow: column nowrap;
+		gap: 1rem;
+		justify-content: flex-start;
+
+		.name-wrapper {
+			display: flex;
+			gap: 1.5rem;
+			align-items: center;
+		}
+	}
+
+	.alternative-section {
+		font-weight: 600;
+		display: flex;
+		gap: 0.2rem;
+
+		span:nth-child(2) {
+			color: $macau-dark-10;
+			font-weight: 600;
+			cursor: pointer;
+
+			&:hover {
+				color: $macau-base;
+				text-decoration: underline;
+			}
+		}
+	}
+
+	.button-section {
+		display: flex;
+		justify-content: flex-end;
+		gap: 0.5rem;
+	}
+}

@@ -1,0 +1,38 @@
+@use '../../sass/variables' as *;
+
+.input-wrapper {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+
+	&:focus-within {
+		label {
+			color: $macau-dark-10;
+			font-weight: 700;
+		}
+		input {
+			border-color: $macau-dark-10;
+		}
+	}
+
+	label {
+		font-size: 16px;
+		margin-left: 0.5rem;
+		cursor: text;
+		font-weight: 600;
+	}
+
+	input {
+		font-size: 16px;
+		line-height: 100%;
+		padding: 0.5rem 1rem;
+		outline: none;
+		border: 2px solid $bw-10;
+		border-radius: 3rem;
+	}
+
+	span {
+		color: $cardinal-base;
+	}
+}

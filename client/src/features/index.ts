@@ -14,4 +14,5 @@ export {
 export {
 	default as modalsReducer,
 	toggleModal,
+	switchModal,
 } from './modalsSlice/modalsSlice';

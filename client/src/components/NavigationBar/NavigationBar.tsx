@@ -3,15 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { Button, Icon, NavbarItem } from 'components';
 import './NavigationBar.scss';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from 'hooks';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import { toggleModal } from 'features';
 
 const NavigationBar: FC = () => {
-	const [expandedOptions, setExpandedOptions] = useState(false);
-
 	const { t } = useTranslation();
 
 	const { isAuth, fullName, imageUrl } = useAppSelector((state) => state.auth);
 
+	const dispatch = useAppDispatch();
 	return (
 		<div className='navbar'>
 			<div className='title'>Meals.io</div>
@@ -53,9 +53,22 @@ const NavigationBar: FC = () => {
 				</div>
 			) : (
 				<div className='login-section'>
-					<Button onClick={() => console.log('Login')}>{t('login')}</Button>
+					<Button
+						onClick={() =>
+							dispatch(toggleModal({ modal: 'loginModal', toggleOpen: true }))
+						}
+					>
+						{t('login')}
+					</Button>
 					<span>or</span>
-					<Button type='secondary' onClick={() => console.log('Register')}>
+					<Button
+						type='secondary'
+						onClick={() =>
+							dispatch(
+								toggleModal({ modal: 'registerModal', toggleOpen: true })
+							)
+						}
+					>
 						{t('register')}
 					</Button>
 				</div>
