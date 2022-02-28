@@ -10,3 +10,8 @@ export {
 	openSnackbar,
 	closeSnackbar,
 } from './snackbarSlice/snackbarSlice';
+
+export {
+	default as modalsReducer,
+	toggleModal,
+} from './modalsSlice/modalsSlice';
