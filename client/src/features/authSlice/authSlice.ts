@@ -1,8 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Error } from 'models/Error/Error.model';
 
-interface RegisterUserProps {
-	name: string;
+interface RegisterUserProps extends LoginUserProps {
+	firstName: string;
+	lastName: string;
+}
+
+interface LoginUserProps {
 	email: string;
 	password: string;
 }
@@ -14,7 +18,10 @@ interface RegisterUserResponseProps {
 
 export const registerUser = createAsyncThunk(
 	'auth/registerUser',
-	async ({ name, email, password }: RegisterUserProps, thunkAPI) => {
+	async (
+		{ firstName, lastName, email, password }: RegisterUserProps,
+		thunkAPI
+	) => {
 		const { REACT_APP_SERVER_URL } = process.env;
 		try {
 			const response = await fetch(REACT_APP_SERVER_URL + '/auth/register', {
@@ -24,7 +31,38 @@ export const registerUser = createAsyncThunk(
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					name,
+					firstName: firstName,
+					lastName: lastName,
+					email,
+					password,
+				}),
+			});
+			const data = await response.json();
+			return response.status === 200
+				? (data as RegisterUserResponseProps)
+				: thunkAPI.rejectWithValue(data as Error);
+		} catch (e) {
+			return thunkAPI.rejectWithValue({
+				type: 'general',
+				on: 'register',
+				message: 'An error occured!',
+			} as Error);
+		}
+	}
+);
+
+export const loginUser = createAsyncThunk(
+	'auth/loginUser',
+	async ({ email, password }: LoginUserProps, thunkAPI) => {
+		const { REACT_APP_SERVER_URL } = process.env;
+		try {
+			const response = await fetch(REACT_APP_SERVER_URL + '/auth/login', {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
 					email,
 					password,
 				}),

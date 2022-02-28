@@ -1,15 +1,37 @@
-import { FC, useState } from 'react';
-import { Button, Input } from 'components';
+import { FC, useCallback, useState } from 'react';
+import { Button, Input, InputState } from 'components';
 import { ModalWrapper } from 'hoc';
 import { useAppDispatch } from 'hooks';
-import { switchModal, toggleModal } from 'features';
+import { loginUser, switchModal, toggleModal } from 'features';
+import { isEmail } from 'utils/validation/validation';
 import './AuthenticationModals.scss';
 
 const LoginModal: FC = () => {
-	const [email, setEmail] = useState<string>('');
-	const [password, setPassword] = useState<string>('');
+	const [email, setEmail] = useState<InputState>({ val: '', err: '' });
+	const [pwd, setPwd] = useState<InputState>({ val: '', err: '' });
 
 	const dispatch = useAppDispatch();
+
+	const onSubmit = useCallback(() => {
+		// Check for missing fields
+		!email.val && setEmail({ ...email, err: 'Missing field!' });
+		!pwd.val && setPwd({ ...pwd, err: 'Missing field!' });
+
+		// Check valid fields!
+		if (email.val && pwd.val) {
+			const isValidEmail = isEmail(email.val);
+			!isValidEmail && setEmail({ ...email, err: 'Invalid email!' });
+
+			if (isValidEmail) {
+				dispatch(
+					loginUser({
+						email: email.val,
+						password: pwd.val,
+					})
+				);
+			}
+		}
+	}, [email, pwd]);
 
 	return (
 		<ModalWrapper
@@ -23,21 +45,21 @@ const LoginModal: FC = () => {
 					<Input
 						title='Email'
 						name='email'
-						error=''
-						value={email || ''}
+						error={email.err}
+						value={email.val || ''}
 						autoComplete='email'
 						placeholder='Your email'
-						onChange={(e) => setEmail(e.target.value)}
+						onChange={(e) => setEmail({ val: e.target.value, err: '' })}
 					/>
 					<Input
 						title='Password'
 						name='password'
-						error=''
+						error={pwd.err}
 						type='password'
-						value={password || ''}
+						value={pwd.val || ''}
 						autoComplete='current-password'
 						placeholder='Your password'
-						onChange={(e) => setPassword(e.target.value)}
+						onChange={(e) => setPwd({ val: e.target.value, err: '' })}
 					/>
 				</div>
 				<div className='alternative-section'>

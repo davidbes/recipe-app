@@ -7,6 +7,11 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 	error: string;
 }
 
+export interface InputState {
+	val: string;
+	err: string;
+}
+
 const Input: FC<Props> = ({ title, name, error, ...rest }: Props) => {
 	return (
 		<div className='input-wrapper'>
