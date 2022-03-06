@@ -12,7 +12,7 @@ router.post('/register', validateRegister, async (req, res) => {
 		const userExists = await User.findOne({ email: email });
 
 		if (userExists) {
-			res.status(401).json({
+			return res.status(401).json({
 				on: 'email',
 				message: 'User already exists!',
 			});
@@ -51,24 +51,28 @@ router.post('/login', validateLogin, async (req, res) => {
 		const user = await User.findOne({ email: email });
 
 		if (!user) {
-			res.status(401).json({ on: 'email', message: 'User does not exist!' });
+			return res
+				.status(401)
+				.json({ on: 'email', message: 'User does not exist!' });
 		}
 
-		const passwordMatch = bcrypt.compare(password, user.password);
+		const passwordMatch = await bcrypt.compare(password, user.password);
 
 		if (!passwordMatch) {
-			res.status(401).json({ on: 'password', message: 'Inccorect password!' });
+			return res
+				.status(401)
+				.json({ on: 'password', message: 'Inccorect password!' });
 		}
 
 		const token = jwtGenerator(user.id);
 
-		res.json({
+		return res.json({
 			id: user.id,
 			token: token,
 		});
 	} catch (error) {
 		console.log('auth/login ERROR', error);
-		res.status(500).json({ message: 'Server error occured!' });
+		return res.status(500).json({ message: 'Server error occured!' });
 	}
 });
 
@@ -76,21 +80,21 @@ router.delete('/deleteUser', authorize, async (req, res) => {
 	try {
 		await User.findByIdAndDelete(req.user.trim());
 
-		res.json({ message: 'User successfully deleted' });
+		return res.json({ message: 'User successfully deleted' });
 	} catch (error) {
 		console.log('auth/deleteUser ERROR', error);
 		res.status(500).json({ message: 'Server error occured!' });
 	}
 });
 
-router.get('/user', authorize, async (req, res) => {
+router.get('/verify', authorize, async (req, res) => {
 	try {
-		res.json({
+		return res.json({
 			id: req.user,
 		});
 	} catch (error) {
 		console.log('auth/user ERROR', error);
-		res.status(500).json({ message: 'Server error occured!' });
+		return res.status(500).json({ message: 'Server error occured!' });
 	}
 });
 
