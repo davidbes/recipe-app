@@ -2,12 +2,7 @@ import { FC, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { ScreenWrapper } from 'hoc';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import {
-	fetchRecipes,
-	clearRecipes,
-	openSnackbar,
-	fetchOneRecipe,
-} from 'features';
+import { clearRecipes, openSnackbar, fetchOneRecipe } from 'features';
 import { Spinner } from 'components';
 
 const Recipe: FC = () => {

@@ -39,7 +39,7 @@ const NavigationBar: FC = () => {
 			</ul>
 			{isAuth ? (
 				<div className='profile-section'>
-					<Link to='/me'>
+					<Link to='/profile'>
 						{fullName && image ? (
 							<img src={image} alt='Avatar' />
 						) : (
@@ -51,7 +51,7 @@ const NavigationBar: FC = () => {
 						options={[
 							{
 								label: 'My profile',
-								action: () => navigate('/me'),
+								action: () => navigate('/profile'),
 							},
 							{
 								label: 'Preferences',
@@ -59,7 +59,7 @@ const NavigationBar: FC = () => {
 							},
 							{
 								label: 'Logout',
-								action: () => dispatch(logout()),
+								action: () => navigate('/logout'),
 								type: 'danger',
 							},
 						]}

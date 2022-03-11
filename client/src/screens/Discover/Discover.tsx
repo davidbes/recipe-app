@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { RecipeCard, Spinner } from 'components';
+import { RecipeCard, RecipesList, Spinner } from 'components';
 import { clearRecipes, fetchRecipes, openSnackbar } from 'features';
 import { ScreenWrapper } from 'hoc';
 import { useAppDispatch, useAppSelector } from 'hooks';
@@ -17,10 +17,11 @@ const Discover: FC = () => {
 		return () => {
 			dispatch(clearRecipes());
 		};
-	}, []);
+	}, [dispatch]);
 
 	useEffect(() => {
 		if (error && error.message) {
+			console.log('discover snack');
 			dispatch(openSnackbar({ message: error.message, type: 'error' }));
 		}
 	}, [error]);
@@ -29,39 +30,7 @@ const Discover: FC = () => {
 		<ScreenWrapper>
 			<div className='filter-section'>Filters</div>
 			<div className='items'>
-				{isLoading ? (
-					<div className='center-container'>
-						<Spinner />
-					</div>
-				) : recipes && recipes.length > 0 ? (
-					recipes.map(
-						({
-							id,
-							image,
-							name,
-							authorName,
-							authorId,
-							time,
-							serves,
-							difficulty,
-							rating,
-						}: RecipeListItem) => (
-							<RecipeCard
-								id={id}
-								image={image}
-								name={name}
-								author={authorName}
-								authorId={authorId}
-								rating={rating}
-								time={time}
-								difficulty={serves}
-								servings={difficulty}
-							/>
-						)
-					)
-				) : (
-					<div className='center-container'>No data found</div>
-				)}
+				<RecipesList recipes={recipes} isLoading={isLoading} />
 			</div>
 		</ScreenWrapper>
 	);

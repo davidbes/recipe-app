@@ -1,7 +1,7 @@
 export interface Profile {
 	id: string;
-	firstName: string;
-	lastName: string;
+	name: string;
+	title: string;
 	description: string;
 	image: string;
 }

@@ -10,7 +10,7 @@ import {
 	Profile,
 	Saved,
 	Recipe,
-	Me,
+	Logout,
 } from 'screens';
 
 const AppRoutes = () => {
@@ -37,8 +37,9 @@ const AppRoutes = () => {
 			<Route path='/discover' element={<Discover />}></Route>
 			<Route path='/recipe/:id' element={<Recipe />}></Route>
 			<Route path='/profile/:id' element={<Profile />}></Route>
-			<Route path='/me' element={<Me />}></Route>
+			<Route path='/profile' element={<Profile />}></Route>
 			<Route path='/saved' element={<Saved />}></Route>
+			<Route path='/logout' element={<Logout />}></Route>
 		</Routes>
 	);
 };

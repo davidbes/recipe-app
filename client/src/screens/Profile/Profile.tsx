@@ -1,52 +1,142 @@
-import { FC, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { ScreenWrapper } from 'hoc';
-import { openSnackbar, clearRecipes, fetchProfile } from 'features';
+import { FC, useEffect, useState } from 'react';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { ScreenWrapper, WithSpinner } from 'hoc';
+import {
+	openSnackbar,
+	fetchProfile,
+	fetchSavedRecipes,
+	fetchUploadedRecipes,
+	clearSavedRecipes,
+	clearUploadedRecipes,
+	clearProfile,
+} from 'features';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { ProfileImage, Spinner } from 'components';
+import { HiArrowSmLeft } from 'react-icons/hi';
+import { Button, ProfileImage, RecipesList, TabSection } from 'components';
+import './Profile.scss';
 
 const Profile: FC = () => {
+	const [isPersonalProfile, setIsPersonalProfile] = useState<boolean>(false);
+
 	const { id } = useParams();
-
+	const { pathname } = useLocation();
+	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
-	const { isLoading, profile, error } = useAppSelector(
-		(state) => state.profile
-	);
 
+	// Check if profile is personal
 	useEffect(() => {
-		dispatch(
-			id
-				? fetchProfile(id)
-				: openSnackbar({ message: 'An error occured!', type: 'error' })
-		);
-		return () => {
-			dispatch(clearRecipes());
-		};
-	}, [id]);
+		setIsPersonalProfile(pathname == '/profile');
+	}, [pathname, isPersonalProfile, setIsPersonalProfile]);
 
+	// Data
+	const { saved, uploaded, profile, auth } = useAppSelector((state) => ({
+		profile: state.profile,
+		saved: state.recipesSaved,
+		uploaded: state.recipesUploaded,
+		auth: state.auth,
+	}));
+
+	// Fetch nescessary data
 	useEffect(() => {
-		console.log('Hello');
-		if (error && error.message) {
-			dispatch(openSnackbar({ message: error.message, type: 'error' }));
+		if (isPersonalProfile && auth.userId) {
+			dispatch(fetchProfile(auth.userId));
+			dispatch(fetchSavedRecipes(auth.userId));
+			dispatch(fetchUploadedRecipes(auth.userId));
+		} else {
+			if (id) {
+				dispatch(fetchProfile(id));
+				dispatch(fetchSavedRecipes(id));
+				dispatch(fetchUploadedRecipes(id));
+			}
 		}
-	}, [error]);
+		return () => {
+			dispatch(clearSavedRecipes());
+			dispatch(clearUploadedRecipes());
+			dispatch(clearProfile());
+		};
+	}, [id, isPersonalProfile, auth.userId]);
+
+	useEffect(() => {
+		if (profile.error && profile.error.message) {
+			dispatch(openSnackbar({ message: profile.error.message, type: 'error' }));
+		}
+	}, [profile.error]);
+
+	useEffect(() => {
+		if (saved.error && saved.error.message) {
+			dispatch(openSnackbar({ message: saved.error.message, type: 'error' }));
+		}
+	}, [saved.error]);
+
+	useEffect(() => {
+		if (uploaded.error && uploaded.error.message) {
+			dispatch(
+				openSnackbar({ message: uploaded.error.message, type: 'error' })
+			);
+		}
+	}, [uploaded.error]);
 
 	return (
 		<ScreenWrapper>
-			{isLoading ? (
-				<Spinner />
-			) : (
-				(profile && (
-					<div>
-						<ProfileImage
-							img={profile.image}
-							name={profile.firstName + ' ' + profile.lastName}
+			<WithSpinner isLoading={profile.isLoading}>
+				{(profile && (
+					<div className='profile'>
+						<div className='main-section'>
+							<button className='back-action' onClick={() => navigate(-1)}>
+								<HiArrowSmLeft />
+							</button>
+							<div className='profile-data'>
+								<ProfileImage
+									img={profile.profile?.image}
+									name={profile.profile?.name || ''}
+								/>
+								<div className='profession'>
+									<h2>{profile.profile?.name}</h2>
+									<span>{profile.profile?.title || 'Ordinary cook'}</span>
+								</div>
+								<div>Badges</div>
+							</div>
+							<div className='actions'>
+								{isPersonalProfile ? (
+									<Button onClick={() => console.log('Button pressed')}>
+										Manage Profile
+									</Button>
+								) : (
+									<Button onClick={() => console.log('Button pressed')}>
+										Follow
+									</Button>
+								)}
+							</div>
+						</div>
+						<div className='description'>
+							{profile.profile?.description || 'No description available'}
+						</div>
+						<TabSection
+							tabs={[
+								{
+									element: (
+										<RecipesList
+											recipes={uploaded.recipes}
+											isLoading={uploaded.isLoading}
+										/>
+									),
+									label: 'Uploaded',
+								},
+								{
+									element: (
+										<RecipesList
+											recipes={saved.recipes}
+											isLoading={saved.isLoading}
+										/>
+									),
+									label: 'Saved',
+								},
+							]}
 						/>
-						{profile.firstName + ' ' + profile.lastName}
 					</div>
 				)) ||
-				'Profile not available'
-			)}
+					'Profile not available'}
+			</WithSpinner>
 		</ScreenWrapper>
 	);
 };

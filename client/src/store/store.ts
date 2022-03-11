@@ -6,18 +6,20 @@ import {
 	getRecipesReducer,
 	modalsReducer,
 	snackbarReducer,
-	getMyProfileReducer,
+	getSavedRecipesReducer,
+	getUploadedRecipesReducer,
 } from 'features';
 
 export const store = configureStore({
 	reducer: {
 		auth: authReducer,
 		recipesAll: getRecipesReducer,
+		recipesSaved: getSavedRecipesReducer,
+		recipesUploaded: getUploadedRecipesReducer,
 		recipeOne: getOneRecipeReducer,
 		profile: getProfileReducer,
 		snackbar: snackbarReducer,
 		modals: modalsReducer,
-		myProfile: getMyProfileReducer,
 	},
 });
 

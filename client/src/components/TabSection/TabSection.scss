@@ -1,0 +1,48 @@
+@use '../../sass/variables' as *;
+
+.tab-section {
+	flex: auto;
+	margin-top: 1rem;
+
+	.header {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+		align-items: center;
+
+		.header-item {
+			flex: 1;
+			text-align: center;
+			cursor: pointer;
+			padding: 10px;
+			border-radius: 18px 18px 0 0;
+
+			span {
+				line-height: 22px;
+				font-size: 18px;
+				color: $bw-50;
+				transition: 0.2s ease-in;
+			}
+
+			&:hover {
+				background-color: rgba($color: #000000, $alpha: 0.01);
+			}
+
+			&.active {
+				span {
+					color: $bw-0;
+					font-weight: bold;
+					transform: scale(1.5);
+				}
+			}
+		}
+
+		border-bottom: 1px solid rgba($color: #000000, $alpha: 0.2);
+	}
+
+	.tab-content {
+		display: flex;
+		flex: 1;
+		margin-top: 1rem;
+	}
+}

@@ -36,6 +36,7 @@ router.post('/register', validateRegister, async (req, res) => {
 		res.json({
 			id: savedUser.id,
 			token: token,
+			name: firstName + ' ' + lastName,
 		});
 	} catch (error) {
 		console.log('auth/register ERROR', error);
@@ -68,6 +69,7 @@ router.post('/login', validateLogin, async (req, res) => {
 		return res.json({
 			id: user.id,
 			token: token,
+			name: user.firstName + ' ' + user.lastName,
 		});
 	} catch (error) {
 		console.log('auth/login ERROR', error);

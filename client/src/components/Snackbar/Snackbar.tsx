@@ -25,7 +25,7 @@ const Snackbar: FC<Props> = ({ message, type = 'error', isActive }: Props) => {
 		if (isActive) {
 			setTimeout(() => {
 				dispatch(closeSnackbar());
-			}, 2000);
+			}, 3000);
 		}
 	}, [isActive]);
 
