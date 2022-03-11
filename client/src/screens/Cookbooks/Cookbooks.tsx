@@ -1,6 +1,7 @@
 import { ScreenWrapper } from 'hoc';
+import { FC } from 'react';
 
-const Cookbooks = () => {
+const Cookbooks: FC = () => {
 	return <ScreenWrapper></ScreenWrapper>;
 };
 

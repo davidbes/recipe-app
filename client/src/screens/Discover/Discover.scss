@@ -1,11 +1,16 @@
 .items {
 	display: flex;
 	flex-flow: row wrap;
-	justify-content: start;
-	gap: 22px;
+	justify-content: center;
+	gap: 25px;
+
 	.center-container {
 		flex: 1;
 		display: flex;
 		justify-content: center;
 	}
+}
+
+.filter-section {
+	padding: 2rem 1rem;
 }

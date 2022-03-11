@@ -1,1 +1,5 @@
-export interface Recipe {}
+export interface Recipe {
+	id: string;
+	name: string;
+	author: string;
+}

@@ -1,3 +1,5 @@
+@use '../../sass/variables' as *;
+
 .navbar {
 	position: fixed;
 	z-index: 100;
@@ -43,10 +45,22 @@
 			display: flex;
 			align-items: center;
 			gap: 0.8rem;
+
 			img {
 				height: 30px;
 				width: 30px;
 				border-radius: 50%;
+			}
+
+			.no-image-avatar {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 30px;
+				width: 30px;
+				background-color: $cardinal-dark-5;
+				border-radius: 50%;
+				color: $bw-100;
 			}
 
 			span {

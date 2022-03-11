@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { RecipeCard, Spinner } from 'components';
 import { clearRecipes, fetchRecipes, openSnackbar } from 'features';
 import { ScreenWrapper } from 'hoc';
@@ -6,13 +6,11 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import { RecipeListItem } from 'models';
 import './Discover.scss';
 
-const Discover = () => {
+const Discover: FC = () => {
 	const dispatch = useAppDispatch();
 	const { isLoading, recipes, error } = useAppSelector(
 		(state) => state.recipesAll
 	);
-
-	const { isActive, message } = useAppSelector((state) => state.snackbar);
 
 	useEffect(() => {
 		dispatch(fetchRecipes());
@@ -29,7 +27,7 @@ const Discover = () => {
 
 	return (
 		<ScreenWrapper>
-			<div>Filtering System</div>
+			<div className='filter-section'>Filters</div>
 			<div className='items'>
 				{isLoading ? (
 					<div className='center-container'>

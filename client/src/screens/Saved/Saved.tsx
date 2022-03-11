@@ -1,6 +1,7 @@
 import { ScreenWrapper } from 'hoc';
+import { FC } from 'react';
 
-const Saved = () => {
+const Saved: FC = () => {
 	return <ScreenWrapper></ScreenWrapper>;
 };
 

@@ -10,3 +10,5 @@ export { default as NavigationBar } from './NavigationBar/NavigationBar';
 export { default as RecipeCard } from './RecipeCard/RecipeCard';
 export { default as Snackbar } from './Snackbar/Snackbar';
 export { default as Spinner } from './Spinner/Spinner';
+export { default as ProfileImage } from './ProfileImage/ProfileImage';
+export { default as IconDropdownButton } from './IconDropdownButton/IconDropdownButton';

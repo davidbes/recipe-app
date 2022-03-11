@@ -31,7 +31,6 @@ router.post('/register', validateRegister, async (req, res) => {
 
 		const savedUser = await newUser.save();
 
-		// Generate token
 		const token = jwtGenerator(savedUser.id);
 
 		res.json({
@@ -89,8 +88,16 @@ router.delete('/deleteUser', authorize, async (req, res) => {
 
 router.get('/verify', authorize, async (req, res) => {
 	try {
+		const user = await User.findById(req.userId);
+
+		if (!user) {
+			return res.status(401).json({ message: 'User not found!' });
+		}
+
 		return res.json({
-			id: req.user,
+			id: req.userId,
+			name: user.firstName + ' ' + user.lastName,
+			image: user.image,
 		});
 	} catch (error) {
 		console.log('auth/user ERROR', error);

@@ -11,9 +11,16 @@ interface LoginUserProps {
 	password: string;
 }
 
-interface RegisterUserResponseProps {
+interface UserResponseProps {
 	token: string;
 	user: string;
+	name: string;
+	id: string;
+	image?: string;
+}
+
+interface VerifyTokenProps {
+	token: string;
 }
 
 export const registerUser = createAsyncThunk(
@@ -39,7 +46,7 @@ export const registerUser = createAsyncThunk(
 			});
 			const data = await response.json();
 			return response.status === 200
-				? (data as RegisterUserResponseProps)
+				? (data as UserResponseProps)
 				: thunkAPI.rejectWithValue(data as Error);
 		} catch (e) {
 			return thunkAPI.rejectWithValue({
@@ -69,7 +76,7 @@ export const loginUser = createAsyncThunk(
 			});
 			const data = await response.json();
 			return response.status === 200
-				? (data as RegisterUserResponseProps)
+				? (data as UserResponseProps)
 				: thunkAPI.rejectWithValue(data as Error);
 		} catch (e) {
 			return thunkAPI.rejectWithValue({
@@ -81,22 +88,56 @@ export const loginUser = createAsyncThunk(
 	}
 );
 
+export const verifyToken = createAsyncThunk(
+	'users/verifyToken',
+	async ({ token }: VerifyTokenProps, thunkAPI) => {
+		const { REACT_APP_SERVER_URL } = process.env;
+		try {
+			const response = await fetch(REACT_APP_SERVER_URL + '/auth/verify', {
+				method: 'GET',
+				headers: {
+					Accept: 'application/json',
+					Authorization: token,
+					'Content-Type': 'application/json',
+				},
+			});
+			let data = await response.json();
+
+			console.log(data);
+			if (response.status === 200) {
+				return data as UserResponseProps;
+			} else {
+				return thunkAPI.rejectWithValue(data);
+			}
+		} catch (e) {
+			return thunkAPI.rejectWithValue({
+				type: 'token',
+				message: 'Token expired',
+			});
+		}
+	}
+);
+
 interface AuthState {
 	isAuth: boolean;
+	isError: boolean;
+	verifyLoading: boolean;
 	isLoading: boolean;
 	userId: string;
 	error: Error | undefined;
 	fullName: string;
-	imageUrl: string;
+	image: string;
 }
 
 const initialState = {
 	isAuth: false,
 	isLoading: false,
+	verifyLoading: false,
+	isError: false,
 	userId: '',
 	error: undefined,
 	fullName: '',
-	imageUrl: '',
+	image: '',
 } as AuthState;
 
 const authSlice = createSlice({
@@ -112,16 +153,55 @@ const authSlice = createSlice({
 		builder.addCase(registerUser.fulfilled, (state, { payload }): void => {
 			localStorage.setItem('token', payload.token);
 			state.userId = payload.user;
+			state.fullName = payload.name;
 			state.isAuth = true;
 			state.isLoading = false;
+			state.isError = false;
+			state.error = undefined;
 		});
 		builder.addCase(registerUser.pending, (state): void => {
 			state.isLoading = true;
 		});
 		builder.addCase(registerUser.rejected, (state, action): void => {
+			state.error = action.payload as Error;
 			state.isAuth = false;
 			state.isLoading = false;
+			state.isError = true;
+		});
+		builder.addCase(loginUser.fulfilled, (state, { payload }): void => {
+			localStorage.setItem('token', payload.token);
+			state.userId = payload.user;
+			state.isAuth = true;
+			state.fullName = payload.name;
+			state.image = payload.image || '';
+			state.isLoading = false;
+			state.isError = false;
+		});
+		builder.addCase(loginUser.pending, (state): void => {
+			state.isLoading = true;
+		});
+		builder.addCase(loginUser.rejected, (state, action): void => {
 			state.error = action.payload as Error;
+			state.isAuth = false;
+			state.isLoading = false;
+			state.isError = true;
+		});
+		builder.addCase(verifyToken.fulfilled, (state, { payload }): void => {
+			state.userId = payload.id;
+			state.isAuth = true;
+			state.fullName = payload.name;
+			state.image = payload.image || '';
+			state.verifyLoading = false;
+			state.isError = false;
+		});
+		builder.addCase(verifyToken.pending, (state): void => {
+			state.verifyLoading = true;
+		});
+		builder.addCase(verifyToken.rejected, (state, action): void => {
+			state.error = action.payload as Error;
+			state.isAuth = false;
+			state.verifyLoading = false;
+			state.isError = true;
 		});
 	},
 });

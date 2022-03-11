@@ -1,0 +1,69 @@
+@use '../../sass/variables' as *;
+
+.dropdown-button {
+	position: relative;
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+
+	&.active {
+		button {
+			background-color: rgba($color: #000000, $alpha: 0.2);
+		}
+	}
+
+	&.light {
+		button {
+			color: #ffffff;
+		}
+	}
+
+	button {
+		height: 35px;
+		width: 35px;
+		border-radius: 50%;
+		padding: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: transparent;
+
+		&:hover {
+			background-color: rgba($color: #000000, $alpha: 0.3);
+		}
+	}
+
+	.options {
+		position: absolute;
+		top: 100%;
+		z-index: 100;
+		right: calc(100% - 30px);
+		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+		border-radius: 5px;
+
+		.option {
+			width: 150px;
+			padding: 12px 12px;
+			background-color: $bw-100;
+			cursor: pointer;
+			color: $bw-10;
+
+			&.danger {
+				color: rgb(141, 14, 14);
+				font-weight: 500;
+			}
+
+			&:hover {
+				background-color: $bw-90;
+			}
+
+			&:first-child {
+				border-radius: 5px 5px 0 0;
+			}
+
+			&:last-child {
+				border-radius: 0 0 5px 5px;
+			}
+		}
+	}
+}

@@ -17,11 +17,12 @@
 		gap: 1rem;
 		justify-content: flex-start;
 
-		.name-wrapper {
-			display: flex;
-			gap: 1.5rem;
-			align-items: center;
-		}
+		// .name-wrapper {
+		// 	display: flex;
+		// 	gap: 1.5rem;
+		// 	align-items: center;
+		// 	flex-flow: row wrap;
+		// }
 	}
 
 	.alternative-section {
@@ -45,5 +46,11 @@
 		display: flex;
 		justify-content: flex-end;
 		gap: 0.5rem;
+	}
+
+	.centered-spinner {
+		flex: 1;
+		display: flex;
+		justify-content: center;
 	}
 }

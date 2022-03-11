@@ -4,10 +4,16 @@ const recipeSchema = new Schema({
 	author: {
 		id: String,
 		image: String,
-		fullName: String,
+		name: String,
 	},
 	name: String,
 	image: String,
+	averages: {
+		time: Number,
+		serves: Number,
+		rating: Number,
+		difficulty: Number,
+	},
 	feedback: [
 		{
 			user: String,

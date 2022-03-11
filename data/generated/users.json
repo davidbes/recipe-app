@@ -1,0 +1,166 @@
+[{
+  "_id": {
+    "$oid": "6228cc0534f96f812939282a"
+  },
+  "firstName": "Shawn",
+  "lastName": "Lord",
+  "email": "shawn.lord@example.com",
+  "password": "$2b$10$dowEZtCrNr0YRoxXAs1FUuVh0C4kutzdXEQUEFmDdiS9R119wOxq2",
+  "image": "https://randomuser.me/api/portraits/men/79.jpg",
+  "language": "IE",
+  "saved": []
+},{
+  "_id": {
+    "$oid": "6228cc0534f96f812939282b"
+  },
+  "firstName": "Rémi",
+  "lastName": "Roy",
+  "email": "remi.roy@example.com",
+  "password": "$2b$10$D7rgx9.V844IvTASeVUglu2INgx82fKk7xCi44HGe6riUx/jcsqXW",
+  "image": "https://randomuser.me/api/portraits/men/74.jpg",
+  "language": "FR",
+  "saved": []
+},{
+  "_id": {
+    "$oid": "6228cc0534f96f812939282c"
+  },
+  "firstName": "Özsu",
+  "lastName": "Koyuncu",
+  "email": "ozsu.koyuncu@example.com",
+  "password": "$2b$10$FrINGrZFLwy024GnrpW.Ru7mfk9MyHqdVvY2PU1NX6vO03EgHQ4Je",
+  "image": "https://randomuser.me/api/portraits/women/16.jpg",
+  "language": "TR",
+  "saved": []
+},{
+  "_id": {
+    "$oid": "6228cc0534f96f812939282d"
+  },
+  "firstName": "Heidi",
+  "lastName": "Roberts",
+  "email": "heidi.roberts@example.com",
+  "password": "$2b$10$XFcm/l.dP0dTQB3jWwe/LeJ0OZzgsPA7fgNh3sosx3ualebzql4Sq",
+  "image": "https://randomuser.me/api/portraits/women/65.jpg",
+  "language": "AU",
+  "saved": []
+},{
+  "_id": {
+    "$oid": "6228cc0534f96f812939282e"
+  },
+  "firstName": "Grace",
+  "lastName": "Lewis",
+  "email": "grace.lewis@example.com",
+  "password": "$2b$10$o0b8WJ/qW6/2yJwzhM8qy.1pYb/IZFAxy7HKzHJXnDM/kDFuBa91q",
+  "image": "https://randomuser.me/api/portraits/women/64.jpg",
+  "language": "NZ",
+  "saved": []
+},{
+  "_id": {
+    "$oid": "6228cc0534f96f812939282f"
+  },
+  "firstName": "Theodore",
+  "lastName": "Mason",
+  "email": "theodore.mason@example.com",
+  "password": "$2b$10$PCfJjhVmDuuhgx/dADN7hezm5cDLEp/FUoBptZ2zAPaL5AyzwIMuq",
+  "image": "https://randomuser.me/api/portraits/men/36.jpg",
+  "language": "IE",
+  "saved": []
+},{
+  "_id": {
+    "$oid": "6228cc0534f96f8129392830"
+  },
+  "firstName": "Benjamin",
+  "lastName": "Rasmussen",
+  "email": "benjamin.rasmussen@example.com",
+  "password": "$2b$10$wnZv9ujRL8LCzumwkMX/ceREGmLNiAen1yAM1h/sMoYVMteLBMnLe",
+  "image": "https://randomuser.me/api/portraits/men/76.jpg",
+  "language": "DK",
+  "saved": []
+},{
+  "_id": {
+    "$oid": "6228cc0534f96f8129392831"
+  },
+  "firstName": "Gabriel",
+  "lastName": "Hall",
+  "email": "gabriel.hall@example.com",
+  "password": "$2b$10$krtVPiUfg3n0UOKSsMJqTOjVFr6NxC04zD4pp/Rx9.hkOU.W0StYq",
+  "image": "https://randomuser.me/api/portraits/men/85.jpg",
+  "language": "AU",
+  "saved": []
+},{
+  "_id": {
+    "$oid": "6228cc0534f96f8129392832"
+  },
+  "firstName": "Alice",
+  "lastName": "Gauthier",
+  "email": "alice.gauthier@example.com",
+  "password": "$2b$10$gubW1yqIWrCVzkqsU1LoA.gMUhWlmRCdUjXPVPw3i/3Qhts9kofri",
+  "image": "https://randomuser.me/api/portraits/women/30.jpg",
+  "language": "CA",
+  "saved": []
+},{
+  "_id": {
+    "$oid": "6228cc0534f96f8129392833"
+  },
+  "firstName": "Rachel",
+  "lastName": "Watson",
+  "email": "rachel.watson@example.com",
+  "password": "$2b$10$uM7Vh4pgknbMjN/spxWIE.k9MYwyllYMsjNSSxPxSc9pkW/VsC9JS",
+  "image": "https://randomuser.me/api/portraits/women/76.jpg",
+  "language": "US",
+  "saved": []
+},{
+  "_id": {
+    "$oid": "6228cc0534f96f8129392834"
+  },
+  "firstName": "Ricardo",
+  "lastName": "Berry",
+  "email": "ricardo.berry@example.com",
+  "password": "$2b$10$aw1p7mqOZcZtP0sYYdCcOe/RZUKPSgsJbLhYkxtL9pE1DPhqzWheO",
+  "image": "https://randomuser.me/api/portraits/men/47.jpg",
+  "language": "GB",
+  "saved": []
+},{
+  "_id": {
+    "$oid": "6228cc0534f96f8129392835"
+  },
+  "firstName": "Matthew",
+  "lastName": "Killi",
+  "email": "matthew.killi@example.com",
+  "password": "$2b$10$5su7IUc3CHwLfGbtV.O5L./GFvLoP6d26CvC31PWoV/atA7yRtQtG",
+  "image": "https://randomuser.me/api/portraits/men/46.jpg",
+  "language": "NO",
+  "saved": []
+},{
+  "_id": {
+    "$oid": "6228cc0534f96f8129392836"
+  },
+  "firstName": "Lylou",
+  "lastName": "Roux",
+  "email": "lylou.roux@example.com",
+  "password": "$2b$10$D5sBWllJLly1/Gk10ZAE9ejqaqy05EVg4z2uIqBKHOJMRTH6iHva6",
+  "image": "https://randomuser.me/api/portraits/women/63.jpg",
+  "language": "FR",
+  "saved": []
+},{
+  "_id": {
+    "$oid": "6228cc0534f96f8129392837"
+  },
+  "firstName": "Emma",
+  "lastName": "Wang",
+  "email": "emma.wang@example.com",
+  "password": "$2b$10$B2O2QLOBEL7kYUYf1PyB7OmabbibiiS7fKqrms45g5bTkEPogCAI2",
+  "image": "https://randomuser.me/api/portraits/women/50.jpg",
+  "language": "NZ",
+  "saved": []
+},{
+  "_id": {
+    "$oid": "6228cc0534f96f8129392838"
+  },
+  "firstName": "Mikael",
+  "lastName": "Ylitalo",
+  "email": "mikael.ylitalo@example.com",
+  "password": "$2b$10$JimZzLCudPPs5wTQR66h6uSV8iawsUW7Ue2iVEEEADCl6cEdUD0XC",
+  "image": "https://randomuser.me/api/portraits/men/49.jpg",
+  "language": "FI",
+  "saved": []
+}]

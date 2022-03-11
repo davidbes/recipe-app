@@ -1,15 +1,19 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Icon, NavbarItem } from 'components';
+import { IoChevronDownOutline } from 'react-icons/io5';
+import { Button, Icon, IconDropdownButton, NavbarItem } from 'components';
 import './NavigationBar.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { toggleModal } from 'features';
+import { logout } from 'features/authSlice/authSlice';
 
 const NavigationBar: FC = () => {
 	const { t } = useTranslation();
-
-	const { isAuth, fullName, imageUrl } = useAppSelector((state) => state.auth);
+	const navigate = useNavigate();
+	const { isAuth, fullName, image, userId } = useAppSelector(
+		(state) => state.auth
+	);
 
 	const dispatch = useAppDispatch();
 	return (
@@ -35,21 +39,33 @@ const NavigationBar: FC = () => {
 			</ul>
 			{isAuth ? (
 				<div className='profile-section'>
-					<Link to='/profile'>
-						<img src={imageUrl} alt='Avatar' loading='lazy' />
+					<Link to='/me'>
+						{fullName && image ? (
+							<img src={image} alt='Avatar' />
+						) : (
+							<div className='no-image-avatar'>{fullName.charAt(0)}</div>
+						)}
 						<span>{fullName}</span>
 					</Link>
-
-					<div>
-						<Button
-							type='tertiary'
-							variation='neutral'
-							onClick={() => console.log('Pressed icon')}
-							iconOnly
-						>
-							<Icon icon='arrowDown' size={20} />
-						</Button>
-					</div>
+					<IconDropdownButton
+						options={[
+							{
+								label: 'My profile',
+								action: () => navigate('/me'),
+							},
+							{
+								label: 'Preferences',
+								action: () => navigate('/me/preferences'),
+							},
+							{
+								label: 'Logout',
+								action: () => dispatch(logout()),
+								type: 'danger',
+							},
+						]}
+					>
+						<IoChevronDownOutline />
+					</IconDropdownButton>
 				</div>
 			) : (
 				<div className='login-section'>

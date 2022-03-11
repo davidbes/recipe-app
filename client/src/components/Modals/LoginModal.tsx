@@ -1,7 +1,7 @@
-import { FC, useCallback, useState } from 'react';
-import { Button, Input, InputState } from 'components';
+import { FC, useCallback, useEffect, useState } from 'react';
+import { Button, Input, InputState, Spinner } from 'components';
 import { ModalWrapper } from 'hoc';
-import { useAppDispatch } from 'hooks';
+import { useAppDispatch, useAppSelector } from 'hooks';
 import { loginUser, switchModal, toggleModal } from 'features';
 import { isEmail } from 'utils/validation/validation';
 import './AuthenticationModals.scss';
@@ -33,6 +33,31 @@ const LoginModal: FC = () => {
 		}
 	}, [email, pwd]);
 
+	const { isError, isAuth, isLoading, error } = useAppSelector(
+		(state) => state.auth
+	);
+
+	useEffect(() => {
+		if (isError && error) {
+			switch (error.on) {
+				case 'email':
+					setEmail({ ...email, err: error.message });
+					break;
+				case 'password':
+					setPwd({ ...pwd, err: error.message });
+					break;
+				default:
+					break;
+			}
+		}
+	}, [isError, isAuth, error]);
+
+	useEffect(() => {
+		if (isAuth) {
+			dispatch(toggleModal({ modal: 'loginModal', toggleOpen: false }));
+		}
+	}, [isAuth]);
+
 	return (
 		<ModalWrapper
 			onClose={() =>
@@ -40,56 +65,66 @@ const LoginModal: FC = () => {
 			}
 		>
 			<div className='authentication-modals'>
-				<h1>Login to your account</h1>
-				<div className='inputs-section'>
-					<Input
-						title='Email'
-						name='email'
-						error={email.err}
-						value={email.val || ''}
-						autoComplete='email'
-						placeholder='Your email'
-						onChange={(e) => setEmail({ val: e.target.value, err: '' })}
-					/>
-					<Input
-						title='Password'
-						name='password'
-						error={pwd.err}
-						type='password'
-						value={pwd.val || ''}
-						autoComplete='current-password'
-						placeholder='Your password'
-						onChange={(e) => setPwd({ val: e.target.value, err: '' })}
-					/>
-				</div>
-				<div className='alternative-section'>
-					<span>No account yet?</span>
-					<span
-						onClick={() =>
-							dispatch(
-								switchModal({
-									from: 'loginModal',
-									to: 'registerModal',
-								})
-							)
-						}
-					>
-						Create one
-					</span>
-				</div>
+				{isLoading && !isAuth ? (
+					<div className='centered-spinner'>
+						<Spinner />
+					</div>
+				) : (
+					<>
+						<h1>Login to your account</h1>
+						<div className='inputs-section'>
+							<Input
+								title='Email'
+								name='email'
+								error={email.err}
+								value={email.val || ''}
+								autoComplete='email'
+								placeholder='Your email'
+								onChange={(e) => setEmail({ val: e.target.value, err: '' })}
+							/>
+							<Input
+								title='Password'
+								name='password'
+								error={pwd.err}
+								type='password'
+								value={pwd.val || ''}
+								autoComplete='current-password'
+								placeholder='Your password'
+								onChange={(e) => setPwd({ val: e.target.value, err: '' })}
+							/>
+						</div>
+						<div className='alternative-section'>
+							<span>No account yet?</span>
+							<span
+								onClick={() =>
+									dispatch(
+										switchModal({
+											from: 'loginModal',
+											to: 'registerModal',
+										})
+									)
+								}
+							>
+								Create one
+							</span>
+						</div>
 
-				<div className='button-section'>
-					<Button
-						type='tertiary'
-						variation='danger'
-						onClick={() =>
-							dispatch(toggleModal({ modal: 'loginModal', toggleOpen: false }))
-						}
-					>
-						Cancel
-					</Button>
-					<Button onClick={() => console.log('Cancel Press')}>Login</Button>
-				</div>
+						<div className='button-section'>
+							<Button
+								type='tertiary'
+								variation='danger'
+								onClick={() =>
+									dispatch(
+										toggleModal({ modal: 'loginModal', toggleOpen: false })
+									)
+								}
+							>
+								Cancel
+							</Button>
+							<Button onClick={() => onSubmit()}>Login</Button>
+						</div>
+					</>
+				)}
 			</div>
 		</ModalWrapper>
 	);

@@ -1,5 +1,7 @@
 import { Icon } from 'components';
+import IconDropdownButton from 'components/IconDropdownButton/IconDropdownButton';
 import { FC } from 'react';
+import { GoKebabVertical } from 'react-icons/go';
 import { Link } from 'react-router-dom';
 import './RecipeCard.scss';
 
@@ -27,39 +29,58 @@ const RecipeCard: FC<Props> = ({
 	authorId,
 }: Props) => {
 	return (
-		<div
-			className='recipe-card'
-			onClick={() => console.log('Go to Recipe', id)}
-		>
-			<div className='image'>
-				<img src={image} alt='' />
-				<button onClick={() => console.log('Open options')}>Options</button>
-			</div>
-			<div className='data'>
-				<div className='text'>
-					<h1>{name}</h1>
-					<span>
-						by <Link to={`/profile/${authorId}`}>{author}</Link>
-					</span>
+		<div className='recipe-card-wrapper'>
+			<Link className='recipe-card' to={`/recipe/${id}`}>
+				<div className='image'>
+					<img src={image} alt='Recipe' />
 				</div>
-				<div className='meta'>
-					<div>
-						{rating}
-						<Icon icon='star' />
+				<div className='data'>
+					<div className='text'>
+						<h1>{name}</h1>
+						<span>
+							by{' '}
+							<Link className='clickable-content' to={`/profile/${authorId}`}>
+								{author}
+							</Link>
+						</span>
 					</div>
-					<div>
-						{time}
-						<Icon icon='timer' />
-					</div>
-					<div>
-						{difficulty}
-						<Icon icon='weight' />
-					</div>
-					<div>
-						{servings}
-						<Icon icon='serving' />
+					<div className='meta'>
+						<div>
+							{rating || 0}
+							<Icon icon='star' />
+						</div>
+						<div>
+							{time || 0}
+							<Icon icon='timer' />
+						</div>
+						<div>
+							{difficulty || 0}
+							<Icon icon='weight' />
+						</div>
+						<div>
+							{servings || 0}
+							<Icon icon='serving' />
+						</div>
 					</div>
 				</div>
+			</Link>
+			<div className='action-button'>
+				<IconDropdownButton
+					theme='light'
+					options={[
+						{
+							label: 'Save',
+							action: () => alert('loggie'),
+						},
+						{
+							label: 'Delete',
+							action: () => alert('loggie'),
+							type: 'danger',
+						},
+					]}
+				>
+					<GoKebabVertical />
+				</IconDropdownButton>
 			</div>
 		</div>
 	);
