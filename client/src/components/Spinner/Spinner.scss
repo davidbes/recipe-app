@@ -1,14 +1,23 @@
 @use '../../sass/variables' as *;
 
 .loader {
-	width: 48px;
-	height: 48px;
-	border-radius: 50%;
-	display: inline-block;
-	border-top: 3px solid $cardinal-dark-5;
-	border-right: 3px solid transparent;
-	box-sizing: border-box;
-	animation: rotation 1s linear infinite;
+	display: flex;
+	justify-content: center;
+	flex: 1;
+	flex-flow: column nowrap;
+	gap: 1rem;
+	align-items: center;
+
+	span {
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		display: inline-block;
+		border-top: 3px solid $cardinal-dark-5;
+		border-right: 3px solid transparent;
+		box-sizing: border-box;
+		animation: rotation 1s linear infinite;
+	}
 }
 
 @keyframes rotation {

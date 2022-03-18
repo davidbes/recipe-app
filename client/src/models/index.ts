@@ -1,2 +1,2 @@
 export type { RecipeListItem } from './Recipe/RecipeListItem.model';
-export type { Recipe } from './Recipe/Recipe.model';
+export type { Recipe, Badge } from './Recipe/Recipe.model';

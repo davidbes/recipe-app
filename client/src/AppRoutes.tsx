@@ -11,6 +11,8 @@ import {
 	Saved,
 	Recipe,
 	Logout,
+	NotFound,
+	PersonalProfile,
 } from 'screens';
 
 const AppRoutes = () => {
@@ -27,7 +29,6 @@ const AppRoutes = () => {
 	return verifyLoading ? (
 		<div className='loading-screen'>
 			<Spinner />
-			Loading data...
 		</div>
 	) : (
 		<Routes>
@@ -36,10 +37,11 @@ const AppRoutes = () => {
 			<Route path='/cookbooks' element={<Cookbooks />}></Route>
 			<Route path='/discover' element={<Discover />}></Route>
 			<Route path='/recipe/:id' element={<Recipe />}></Route>
+			<Route path='/profile' element={<PersonalProfile />}></Route>
 			<Route path='/profile/:id' element={<Profile />}></Route>
-			<Route path='/profile' element={<Profile />}></Route>
 			<Route path='/saved' element={<Saved />}></Route>
 			<Route path='/logout' element={<Logout />}></Route>
+			<Route path='*' element={<NotFound />}></Route>
 		</Routes>
 	);
 };

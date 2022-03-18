@@ -40,6 +40,7 @@ router.get('/:id', async (req, res) => {
 			image: recipe.image,
 			authorName: recipe.author.name,
 			authorId: recipe.author.id,
+			badges: recipe.badges,
 			time: Math.round(recipe.averages.time),
 			serves: recipe.averages.serves,
 			difficulty: recipe.averages.difficulty,

@@ -1,5 +1,4 @@
 import { FC, ReactNode, useRef, useState } from 'react';
-import { IconType, Icon } from 'components';
 import { useOnClickOutside } from 'hooks';
 import './IconDropdownButton.scss';
 

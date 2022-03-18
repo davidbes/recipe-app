@@ -4,13 +4,19 @@ const initialState: {
 	confirmModal: boolean;
 	registerModal: boolean;
 	loginModal: boolean;
+	badgesModal: boolean;
 } = {
 	confirmModal: false,
 	registerModal: false,
+	badgesModal: false,
 	loginModal: false,
 };
 
-type ModalType = 'confirmModal' | 'registerModal' | 'loginModal';
+type ModalType =
+	| 'confirmModal'
+	| 'registerModal'
+	| 'loginModal'
+	| 'badgesModal';
 
 interface ToggleProps {
 	modal: ModalType;

@@ -85,31 +85,39 @@
 
 			.meta {
 				display: flex;
-				justify-content: stretch;
-				div {
-					flex: 1;
-					align-items: center;
+				justify-self: stretch;
+				flex: 1;
+
+				.meta-item {
+					border-right: 1px solid $bw-60;
 					display: flex;
-					flex-flow: column nowrap;
-					font-size: 18px;
-					font-weight: 600;
-					border-right: solid 1px $bw-60;
+					justify-self: center;
+					align-items: center;
+					flex: 1;
 
 					&:last-child {
 						border: none;
 					}
 
-					&:nth-child(1) {
-						color: $canary-dark-5;
-					}
-					&:nth-child(2) {
-						color: $leaf-dark-10;
-					}
-					&:nth-child(3) {
-						color: $macau-base;
-					}
-					&:nth-child(4) {
-						color: $cardinal-base;
+					.item-content {
+						width: 100%;
+						justify-content: center;
+						align-items: center;
+						display: flex;
+						flex-direction: column;
+
+						&.red {
+							color: $cardinal-base;
+						}
+						&.green {
+							color: $leaf-dark-10;
+						}
+						&.blue {
+							color: $macau-base;
+						}
+						&.yellow {
+							color: $canary-dark-5;
+						}
 					}
 				}
 			}

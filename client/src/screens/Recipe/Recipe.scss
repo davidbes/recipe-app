@@ -1,2 +1,41 @@
+@use '../../sass/variables' as *;
 
+.meta-recipe {
+	display: flex;
+	width: 300px;
 
+	.meta-item {
+		border-right: 1px solid $bw-60;
+		display: flex;
+		justify-self: center;
+		align-items: center;
+		flex: 1;
+
+		&:last-child {
+			border: none;
+		}
+
+		.item-content {
+			width: 100%;
+			justify-content: center;
+			align-items: center;
+			display: flex;
+			flex-direction: column;
+			font-size: 18px;
+			font-weight: 600;
+
+			&.red {
+				color: $cardinal-base;
+			}
+			&.green {
+				color: $leaf-dark-10;
+			}
+			&.blue {
+				color: $macau-base;
+			}
+			&.yellow {
+				color: $canary-dark-5;
+			}
+		}
+	}
+}

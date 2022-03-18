@@ -70,6 +70,7 @@ router.post('/login', validateLogin, async (req, res) => {
 			id: user.id,
 			token: token,
 			name: user.firstName + ' ' + user.lastName,
+			image: user.image,
 		});
 	} catch (error) {
 		console.log('auth/login ERROR', error);

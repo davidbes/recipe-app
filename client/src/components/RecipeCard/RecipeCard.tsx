@@ -1,5 +1,6 @@
 import { Icon } from 'components';
 import IconDropdownButton from 'components/IconDropdownButton/IconDropdownButton';
+import { WithTooltip } from 'hoc';
 import { FC } from 'react';
 import { GoKebabVertical } from 'react-icons/go';
 import { Link } from 'react-router-dom';
@@ -45,21 +46,38 @@ const RecipeCard: FC<Props> = ({
 						</span>
 					</div>
 					<div className='meta'>
-						<div>
-							{rating || 0}
-							<Icon icon='star' />
+						<div className='meta-item'>
+							<WithTooltip content={'Rating'}>
+								<div className='item-content yellow'>
+									{rating || 0}
+									<Icon icon='star' />
+								</div>
+							</WithTooltip>
 						</div>
-						<div>
-							{time || 0}
-							<Icon icon='timer' />
+						<div className='meta-item'>
+							<WithTooltip content={'Time Required'}>
+								<div className='item-content green'>
+									{time || 0}
+									<Icon icon='timer' />
+								</div>
+							</WithTooltip>
 						</div>
-						<div>
-							{difficulty || 0}
-							<Icon icon='weight' />
+						<div className='meta-item'>
+							<WithTooltip content={'Difficulty'}>
+								<div className='item-content blue'>
+									{difficulty || 0}
+									<Icon icon='weight' />
+								</div>
+							</WithTooltip>
 						</div>
-						<div>
-							{servings || 0}
-							<Icon icon='serving' />
+
+						<div className='meta-item'>
+							<WithTooltip content={'Serves'}>
+								<div className='item-content red'>
+									{servings || 0}
+									<Icon icon='serving' />
+								</div>
+							</WithTooltip>
 						</div>
 					</div>
 				</div>

@@ -24,7 +24,7 @@ const recipeSchema = new Schema({
 			difficulty: Number,
 		},
 	],
-	badges: [{ id: String, name: String, color: String }],
+	badges: [{ name: String, description: String }],
 	language: String,
 	cookingSteps: [
 		{

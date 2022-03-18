@@ -152,15 +152,16 @@ const authSlice = createSlice({
 	extraReducers: (builder): void => {
 		builder.addCase(registerUser.fulfilled, (state, { payload }): void => {
 			localStorage.setItem('token', payload.token);
-			state.userId = payload.user;
-			state.fullName = payload.name;
 			state.isAuth = true;
 			state.isLoading = false;
-			state.isError = false;
-			state.error = undefined;
+			state.userId = payload.id;
+			state.fullName = payload.name;
+			state.image = '';
 		});
 		builder.addCase(registerUser.pending, (state): void => {
 			state.isLoading = true;
+			state.error = undefined;
+			state.isError = false;
 		});
 		builder.addCase(registerUser.rejected, (state, action): void => {
 			state.error = action.payload as Error;
@@ -170,15 +171,16 @@ const authSlice = createSlice({
 		});
 		builder.addCase(loginUser.fulfilled, (state, { payload }): void => {
 			localStorage.setItem('token', payload.token);
-			state.userId = payload.user;
 			state.isAuth = true;
+			state.isLoading = false;
+			state.userId = payload.id;
 			state.fullName = payload.name;
 			state.image = payload.image || '';
-			state.isLoading = false;
-			state.isError = false;
 		});
 		builder.addCase(loginUser.pending, (state): void => {
 			state.isLoading = true;
+			state.error = undefined;
+			state.isError = false;
 		});
 		builder.addCase(loginUser.rejected, (state, action): void => {
 			state.error = action.payload as Error;
@@ -189,19 +191,20 @@ const authSlice = createSlice({
 		builder.addCase(verifyToken.fulfilled, (state, { payload }): void => {
 			state.userId = payload.id;
 			state.isAuth = true;
+			state.verifyLoading = false;
 			state.fullName = payload.name;
 			state.image = payload.image || '';
-			state.verifyLoading = false;
-			state.isError = false;
 		});
 		builder.addCase(verifyToken.pending, (state): void => {
 			state.verifyLoading = true;
+			state.error = undefined;
+			state.isError = false;
 		});
 		builder.addCase(verifyToken.rejected, (state, action): void => {
+			state.isError = true;
 			state.error = action.payload as Error;
 			state.isAuth = false;
 			state.verifyLoading = false;
-			state.isError = true;
 		});
 	},
 });

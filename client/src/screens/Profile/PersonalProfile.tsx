@@ -16,8 +16,6 @@ import { Button, ProfileImage, RecipesList, TabSection } from 'components';
 import './Profile.scss';
 
 const Profile: FC = () => {
-	const { id } = useParams();
-	const { pathname } = useLocation();
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
@@ -31,17 +29,17 @@ const Profile: FC = () => {
 
 	// Fetch nescessary data
 	useEffect(() => {
-		if (id) {
-			dispatch(fetchProfile(id));
-			dispatch(fetchSavedRecipes(id));
-			dispatch(fetchUploadedRecipes(id));
+		if (auth.userId) {
+			dispatch(fetchProfile(auth.userId));
+			dispatch(fetchSavedRecipes(auth.userId));
+			dispatch(fetchUploadedRecipes(auth.userId));
 		}
 		return () => {
 			dispatch(clearSavedRecipes());
 			dispatch(clearUploadedRecipes());
 			dispatch(clearProfile());
 		};
-	}, [id, auth, pathname]);
+	}, [auth, auth.userId]);
 
 	useEffect(() => {
 		if (profile.error && profile.error.message) {
@@ -85,7 +83,7 @@ const Profile: FC = () => {
 							</div>
 							<div className='actions'>
 								<Button onClick={() => console.log('Button pressed')}>
-									Follow
+									Manage Profile
 								</Button>
 							</div>
 						</div>
