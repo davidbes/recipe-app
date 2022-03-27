@@ -4,7 +4,7 @@ import { IoChevronDownOutline } from 'react-icons/io5';
 import { Button, Icon, IconDropdownButton, NavbarItem } from 'components';
 import './NavigationBar.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from 'hooks';
+import { useAppDispatch, useAppSelector, useImageUrl } from 'hooks';
 import { toggleModal } from 'features';
 import { logout } from 'features/authSlice/authSlice';
 
@@ -14,6 +14,8 @@ const NavigationBar: FC = () => {
 	const { isAuth, fullName, image, userId } = useAppSelector(
 		(state) => state.auth
 	);
+
+	const imageUrl = useImageUrl(image);
 
 	const dispatch = useAppDispatch();
 	return (
@@ -40,8 +42,8 @@ const NavigationBar: FC = () => {
 			{isAuth ? (
 				<div className='profile-section'>
 					<Link to='/profile'>
-						{fullName && image ? (
-							<img src={image} alt='Avatar' />
+						{fullName && imageUrl ? (
+							<img src={imageUrl} alt='Avatar' />
 						) : (
 							<div className='no-image-avatar'>{fullName.charAt(0)}</div>
 						)}

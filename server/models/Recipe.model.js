@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching');
 
 const recipeSchema = new Schema({
 	author: {
@@ -49,4 +50,7 @@ const recipeSchema = new Schema({
 	],
 });
 
+recipeSchema.plugin(mongoose_fuzzy_searching, {
+	fields: ['name'],
+});
 module.exports = Recipe = model('recipe', recipeSchema);

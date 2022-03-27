@@ -12,7 +12,13 @@ import {
 } from 'features';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { HiArrowSmLeft } from 'react-icons/hi';
-import { Button, ProfileImage, RecipesList, TabSection } from 'components';
+import {
+	BackButton,
+	Button,
+	ProfileImage,
+	RecipesList,
+	TabSection,
+} from 'components';
 import './Profile.scss';
 
 const Profile: FC = () => {
@@ -66,25 +72,20 @@ const Profile: FC = () => {
 			<WithSpinner isLoading={profile.isLoading}>
 				{(profile && (
 					<div className='profile'>
-						<div className='main-section'>
-							<button className='back-action' onClick={() => navigate(-1)}>
-								<HiArrowSmLeft />
-							</button>
-							<div className='profile-data'>
-								<ProfileImage
-									img={profile.profile?.image}
-									name={profile.profile?.name || ''}
-								/>
-								<div className='profession'>
-									<h2>{profile.profile?.name}</h2>
-									<span>{profile.profile?.title || 'Ordinary cook'}</span>
-								</div>
-								<div>Badges</div>
-							</div>
-							<div className='actions'>
-								<Button onClick={() => console.log('Button pressed')}>
-									Manage Profile
-								</Button>
+						<div className='top-actions'>
+							<BackButton />
+							<Button onClick={() => console.log('Button pressed')}>
+								Manage Profile
+							</Button>
+						</div>
+						<div className='profile-data'>
+							<ProfileImage
+								img={profile.profile?.image}
+								name={profile.profile?.name || ''}
+							/>
+							<div className='profession'>
+								<h2>{profile.profile?.name}</h2>
+								<span>{profile.profile?.title || 'Ordinary cook'}</span>
 							</div>
 						</div>
 						<div className='description'>

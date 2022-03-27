@@ -1,5 +1,5 @@
 import { FC, ReactNode, useRef, useState } from 'react';
-import { useOnClickOutside } from 'hooks';
+import { useClickOutisde } from 'hooks';
 import './IconDropdownButton.scss';
 
 interface OptionType {
@@ -22,7 +22,7 @@ const IconDropdownButton: FC<Props> = ({
 	const [open, setOpen] = useState<boolean>(false);
 	const ref = useRef<HTMLDivElement>(null);
 
-	useOnClickOutside(ref, () => {
+	useClickOutisde(ref, () => {
 		setOpen(false);
 	});
 

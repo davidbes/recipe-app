@@ -1,11 +1,34 @@
 const router = require('express').Router();
+const authorize = require('../middleware/authorize');
+const uploadImage = require('../middleware/uploadImage');
+const processImage = require('../middleware/processImage');
 const Recipe = require('../models/Recipe.model');
+const generateDBQuery = require('../util/generateDBQuery');
 
 router.get('/', async (req, res) => {
 	try {
-		const recipes = await Recipe.find({});
+		console.log(req.query);
 
-		returnData = recipes.map((recipe) => {
+		const { query } = req;
+
+		if (!query.sort || !query.order) {
+			query.sort = 'dateAdded';
+			query.order = 'descending';
+		}
+
+		// Check if query includes search, then call the method for fuzzy search or just apply normal filters.
+		const recipes = query.search
+			? await Recipe.fuzzySearch(
+					{ query: query.search, prefixOnly: true, minSize: 4 },
+					generateDBQuery(query)
+			  ).sort({
+					[query.sort]: query.order,
+			  })
+			: await Recipe.find(generateDBQuery(query)).sort({
+					[query.sort]: query.order,
+			  });
+
+		const returnData = recipes.map((recipe) => {
 			return {
 				id: recipe.id,
 				name: recipe.name,
@@ -25,6 +48,15 @@ router.get('/', async (req, res) => {
 		res.status(500).json({ message: 'Server error occured!' });
 	}
 });
+
+// router.get('/update', async (req, res) => {
+// 	const recipes = await Recipe.find({});
+// 	for (let x in recipes) {
+// 		const updated = await Recipe.findByIdAndUpdate(recipes[x].id, recipes[x]);
+// 		console.log(updated);
+// 	}
+// 	res.status(200).json('Done');
+// });
 
 router.get('/:id', async (req, res) => {
 	try {
@@ -54,6 +86,12 @@ router.get('/:id', async (req, res) => {
 	}
 });
 
-router.get('/:id/rate', async (req, res) => {});
+router.post('/:id/rate', async (req, res) => {});
+
+router.post('/', authorize, uploadImage, processImage, async (req, res) => {
+	try {
+		res.json({ message: 'Helo' });
+	} catch (error) {}
+});
 
 module.exports = router;

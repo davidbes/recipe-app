@@ -2,7 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const jwtGenerator = require('../util/jwtGenerator');
 const authorize = require('../middleware/authorize');
-const { validateRegister, validateLogin } = require('../middleware/validation');
+const { validateRegister, validateLogin } = require('../middleware/validate');
 const User = require('../models/user.model');
 
 router.post('/register', validateRegister, async (req, res) => {
@@ -18,7 +18,6 @@ router.post('/register', validateRegister, async (req, res) => {
 			});
 		}
 
-		// Password Encryption
 		const salt = await bcrypt.genSalt(10);
 		const bcryptPass = await bcrypt.hash(password, salt);
 

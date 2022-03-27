@@ -7,6 +7,9 @@ const userSchema = new Schema({
 	lastName: { type: String, required: true },
 	image: String,
 	saved: [{ type: String }],
+	title: String,
+	description: String,
+	language: String,
 	currentlyInProcess: String,
 });
 

@@ -2,43 +2,32 @@ const router = require('express').Router();
 const authorize = require('../middleware/authorize');
 const User = require('../models/user.model');
 const Recipe = require('../models/Recipe.model');
+const uploadImage = require('../middleware/uploadImage');
+const processImage = require('../middleware/processImage');
 
-router.get('/me', authorize, async (req, res) => {
+// Edit profile
+router.put('/', authorize, uploadImage, processImage, async (req, res) => {
 	try {
-		const { userId } = req;
+		const { description, firstName, lastName, title, imageUrl } = req.body;
+		const image = req.imageUrl || imageUrl;
+		const userId = req.userId;
 
-		if (!userId) {
-			return res.status(401).json({
-				on: 'general',
-				message: 'User not found!',
-			});
-		}
-		const user = await User.findById(userId);
-
-		if (!user) {
-			return res.status(401).json({
-				on: 'general',
-				message: 'Profile not found.',
-			});
-		}
-
-		res.json({
-			user: {
-				firstName: user.firstName,
-				lastName: user.lastName,
-				email: user.email,
-				image: user.image,
-			},
-			preferences: {
-				langauge: user.langauge,
-			},
+		const user = await User.findByIdAndUpdate(userId, {
+			firstName: firstName,
+			lastName: lastName,
+			description: description,
+			image: image,
+			title: title,
 		});
+
+		res.status(200).json(user);
 	} catch (error) {
-		console.log('/my profile ERROR', error.message);
+		console.log('/register ERROR', error);
 		res.status(500).json('Server error');
 	}
 });
 
+// Get profile
 router.get('/:id', async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -58,16 +47,38 @@ router.get('/:id', async (req, res) => {
 			});
 		}
 
-		const retData = {
+		res.json({
 			id: user.id,
 			name: `${user.firstName} ${user.lastName}`,
 			image: user.image,
-		};
-
-		res.json(retData);
+			description: user.description,
+			language: user.language,
+			title: user.title,
+		});
 	} catch (error) {
 		console.log('/register ERROR', error);
 		res.status(500).json('Server error');
+	}
+});
+
+router.put('/save', authorize, async (req, res) => {
+	try {
+		const recipe = req.query.recipe || '';
+
+		const exists = await Recipe.findById(req.query.recipe);
+
+		if (!exists) {
+			return res.status(403).json({ message: 'Recipe does not exist!' });
+		}
+
+		const user = await User.findByIdAndUpdate(req.userId, {
+			$addToSet: { saved: recipe },
+		});
+
+		res.status(200).json(user);
+	} catch (error) {
+		console.log('recipes/ ERROR', error);
+		res.status(500).json({ message: 'Server error occured!' });
 	}
 });
 

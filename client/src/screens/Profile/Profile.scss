@@ -4,36 +4,34 @@
 	display: flex;
 	margin: auto;
 	flex-flow: column nowrap;
-	gap: 24px;
+	gap: 10px;
 
-	.main-section {
-		flex: 1;
+	.top-actions {
+		justify-content: space-between;
 		display: flex;
 		flex-flow: row nowrap;
-		justify-content: space-between;
-		align-items: flex-start;
+	}
 
-		.profile-data {
+	.profile-data {
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: center;
+		gap: 24px;
+
+		.profession {
 			display: flex;
 			flex-flow: column nowrap;
 			align-items: center;
-			gap: 24px;
 
-			.profession {
-				display: flex;
-				flex-flow: column nowrap;
-				align-items: center;
+			h2 {
+				font-size: 24px;
+				font-weight: 600;
+				color: $bw-0;
+			}
 
-				h2 {
-					font-size: 24px;
-					font-weight: 600;
-					color: $bw-0;
-				}
-
-				span {
-					font-size: 18px;
-					color: $bw-50;
-				}
+			span {
+				font-size: 18px;
+				color: $bw-50;
 			}
 		}
 	}
