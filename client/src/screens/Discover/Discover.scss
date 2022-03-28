@@ -13,4 +13,9 @@
 
 .filter-section {
 	padding: 2rem 1rem;
+	flex: 1;
+	flex-flow: row wrap;
+	.filters {
+		display: flex;
+	}
 }

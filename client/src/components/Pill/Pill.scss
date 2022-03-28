@@ -1,0 +1,62 @@
+@use '../../sass/variables' as *;
+
+.pill {
+	display: flex;
+	width: fit-content;
+	padding: 4px 8px 4px 14px;
+	gap: 2px;
+	align-items: center;
+	justify-content: flex-start;
+	border-radius: 14px;
+	cursor: pointer;
+	font-weight: 500;
+
+	svg {
+		fill: currentColor;
+	}
+
+	&.green {
+		background-color: $leaf-dark-5;
+		color: $leaf-light-25;
+		&:hover {
+			background-color: $leaf-base;
+		}
+	}
+
+	&.red {
+		background-color: $cardinal-dark-10;
+		color: $cardinal-light-20;
+		&:hover {
+			background-color: $cardinal-base;
+		}
+	}
+
+	&.yellow {
+		background-color: $canary-base;
+		color: $canary-dark-20;
+		&:hover {
+			background-color: $canary-light-5;
+		}
+	}
+	&.blue {
+		background-color: $macau-base;
+		color: $macau-light-20;
+		&:hover {
+			background-color: $macau-light-5;
+		}
+	}
+	&.light-green {
+		background-color: $leaf-light-5;
+		color: $leaf-light-25;
+		&:hover {
+			background-color: $leaf-light-10;
+		}
+	}
+	&.orange {
+		background-color: #ec9934;
+		color: #ffe1bd;
+		&:hover {
+			background-color: #efa54b;
+		}
+	}
+}

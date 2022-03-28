@@ -1,5 +1,4 @@
-import { LoginModal, NavigationBar, Snackbar } from 'components';
-import RegisterModal from 'components/Modals/RegisterModal';
+import { LoginModal, NavigationBar, Snackbar, RegisterModal } from 'components';
 import { useAppSelector } from 'hooks';
 import { FC } from 'react';
 import './ScreenWrapper.scss';

@@ -2,17 +2,18 @@
 
 button {
 	flex-direction: row;
-	align-items: flex-start;
 	padding: 10px 32px;
 	border-radius: 30px;
 	outline: none;
 	border: none;
 	cursor: pointer;
-
 	font-weight: bold;
 	font-size: 14px;
-	line-height: 100%;
 	letter-spacing: 0.02em;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	gap: 8px;
 
 	&.info {
 		&.primary {

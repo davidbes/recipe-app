@@ -1,0 +1,30 @@
+@use '../../sass/variables' as *;
+
+.searchbar-wrapper {
+	width: 100%;
+	height: auto;
+	display: flex;
+	border: 1px solid $cardinal-dark-10;
+	margin-bottom: 12px;
+	border-radius: 30px;
+	padding: 4px 4px 4px 10px;
+	justify-content: center;
+	align-items: center;
+
+	input[type='text'].searchbar {
+		color: $bw-0;
+		flex: 1;
+		border: none;
+		outline: none;
+		padding: 0px 10px;
+		font-size: 18px;
+		font-weight: 500;
+	}
+
+	transition: 0.1s ease-in-out;
+
+	&:focus-within {
+		border-bottom: 2px solid $cardinal-dark-5;
+		margin-bottom: 11px;
+	}
+}
