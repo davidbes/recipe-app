@@ -6,6 +6,8 @@ const generateFilepath = (req) => {
 			return `recipes/${uuid.v4()}.jpg`;
 		case 'profile':
 			return `users/${req.userId}.jpg`;
+		case 'badges':
+			return `badges/${req.body.name}.png`;
 		default:
 			break;
 	}

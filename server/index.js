@@ -14,6 +14,7 @@ app.use('/images', express.static('./public/'));
 app.use('/auth', require('./routes/auth'));
 app.use('/api/recipes', require('./routes/recipes'));
 app.use('/api/profile', require('./routes/profile'));
+app.use('/api/badges', require('./routes/badges'));
 
 // Connect to the database.
 mongoose.connect(

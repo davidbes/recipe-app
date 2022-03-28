@@ -18,6 +18,7 @@ const RecipesList: FC<Props> = ({
 				<div className='items'>
 					{recipes.map((item: RecipeListItem) => (
 						<RecipeCard
+							key={item.id}
 							id={item.id}
 							image={item.image}
 							name={item.name}

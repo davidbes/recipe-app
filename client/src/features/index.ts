@@ -41,3 +41,9 @@ export {
 	fetchProfile,
 	clearProfile,
 } from './profile/getProfileSlice';
+
+export {
+	default as searchBadgesReducer,
+	fetchBadges,
+	clearBadges,
+} from './searchBadgesSlice/searchBadgesSlice';

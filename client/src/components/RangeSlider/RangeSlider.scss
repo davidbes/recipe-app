@@ -1,13 +1,19 @@
 @use '../../sass/variables' as *;
 
+$slider-length: 250px;
+$track-color: $cardinal-light-10;
+$range-color: $cardinal-dark-5;
+$text-color: $bw-10;
+
 .container {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	padding-bottom: 1rem;
 
 	.slider {
 		position: relative;
-		width: 200px;
+		width: $slider-length;
 	}
 
 	.slider__track,
@@ -24,29 +30,30 @@
 	}
 
 	.slider__track {
-		background-color: $cardinal-light-15;
+		background-color: $track-color;
 		width: 100%;
 		z-index: 1;
 	}
 
 	.slider__range {
-		background-color: $cardinal-base;
+		background-color: $range-color;
 		z-index: 2;
 	}
 
 	.slider__left-value,
 	.slider__right-value {
-		color: $cardinal-dark-5;
-		font-size: 14px;
-		margin-top: 10px;
+		color: $text-color;
+		font-weight: 500;
+		font-size: 16px;
+		margin-top: 12px;
 	}
 
 	.slider__left-value {
-		left: 6px;
+		left: 4px;
 	}
 
 	.slider__right-value {
-		right: -4px;
+		right: 0px;
 	}
 
 	.thumb {
@@ -58,7 +65,7 @@
 			-webkit-tap-highlight-color: transparent;
 
 			/* For Chrome browsers */
-			background-color: $cardinal-dark-5;
+			background-color: $range-color;
 			border: none;
 			border-radius: 50%;
 			cursor: pointer;
@@ -71,7 +78,7 @@
 
 		&::-moz-range-thumb {
 			/* For Firefox browsers */
-			background-color: $cardinal-dark-5;
+			background-color: $range-color;
 			border: none;
 			border-radius: 50%;
 			cursor: pointer;
@@ -85,7 +92,7 @@
 		pointer-events: none;
 		position: absolute;
 		height: 0;
-		width: 200px;
+		width: $slider-length;
 		outline: none;
 
 		&.thumb--zindex-3 {

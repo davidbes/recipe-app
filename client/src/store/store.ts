@@ -8,6 +8,7 @@ import {
 	snackbarReducer,
 	getSavedRecipesReducer,
 	getUploadedRecipesReducer,
+	searchBadgesReducer,
 } from 'features';
 
 export const store = configureStore({
@@ -20,6 +21,7 @@ export const store = configureStore({
 		profile: getProfileReducer,
 		snackbar: snackbarReducer,
 		modals: modalsReducer,
+		badgesSearch: searchBadgesReducer,
 	},
 });
 

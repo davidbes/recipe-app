@@ -1,6 +1,6 @@
-import { FC, useState, useEffect, useRef, useCallback } from 'react';
+import { FC, useState, useRef } from 'react';
 import { useClickOutisde } from 'hooks';
-import './FilterValueSelect.scss';
+import './FilterSelects.scss';
 import RangeSlider from 'components/RangeSlider/RangeSlider';
 import { Button } from 'components';
 
@@ -14,7 +14,7 @@ interface Props {
 	onReset: () => void;
 }
 
-const FilterValueSelect: FC<Props> = ({
+const FilterRangeSelect: FC<Props> = ({
 	label,
 	range: { minEdge, maxEdge },
 	onApply,
@@ -34,9 +34,11 @@ const FilterValueSelect: FC<Props> = ({
 	});
 
 	return (
-		<div className='filter-value-select-wrapper' ref={ref}>
+		<div className='filter-select-wrapper' ref={ref}>
 			<button
-				className='filter-value-select-button'
+				className={`filter-select-button ${open ? 'open' : ''} ${
+					appliedMin != null && appliedMax != null ? 'applied' : ''
+				}`}
 				onClick={() => {
 					if (open) {
 						setCurrMaxValue(null);
@@ -47,10 +49,10 @@ const FilterValueSelect: FC<Props> = ({
 			>
 				{appliedMin != null && appliedMax != null
 					? `${label}: ${appliedMin} - ${appliedMax}`
-					: `Select ${label.toLowerCase()}`}
+					: label}
 			</button>
 			{open && (
-				<div className='filter-value-window'>
+				<div className='filter-select-window'>
 					<span>
 						Drag the slider to change the range of {label.toLowerCase()}.
 					</span>
@@ -64,7 +66,7 @@ const FilterValueSelect: FC<Props> = ({
 							setCurrMaxValue(max);
 						}}
 					/>
-					<div className='button-section'>
+					<div className='filter-select-window-buttons'>
 						<Button
 							size='small'
 							onClick={() => {
@@ -113,4 +115,4 @@ const FilterValueSelect: FC<Props> = ({
 	);
 };
 
-export default FilterValueSelect;
+export default FilterRangeSelect;
