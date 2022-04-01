@@ -1,7 +1,9 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import {
 	FilterBadgeSelect,
+	FilterIngredientSelect,
 	FilterRangeSelect,
+	Pill,
 	RecipesList,
 	SearchBar,
 	SortSelect,
@@ -11,13 +13,38 @@ import { ScreenWrapper } from 'hoc';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import './Discover.scss';
 import { OrderType, SortByType } from 'components/FilterSelects/SortSelect';
+import { Option } from 'components/SearchSelect/SearchSelect';
 
 const Discover: FC = () => {
-	const [searchValue, setSearchValue] = useState<string>('');
-	// const [values, setValues] = useState<any>({
-	// 	min: 0,
-	// 	max: 100,
-	// });
+	const [query, setQuery] = useState<{
+		ratingRng: string;
+		difficultyRng: string;
+		servesRng: string;
+		timeRng: string;
+		search: string;
+		sort: SortByType;
+		order: OrderType;
+		badge: string[];
+		ingredient: string[];
+	}>({
+		ratingRng: '',
+		difficultyRng: '',
+		servesRng: '',
+		timeRng: '',
+		search: '',
+		sort: 'dateAdded',
+		order: 'descending',
+		badge: [],
+		ingredient: [],
+	});
+
+	const [arrayQueryItems, setArrayQueryItems] = useState<
+		{
+			type: 'badge' | 'ingredient';
+			name: string;
+		}[]
+	>([]);
+
 	const dispatch = useAppDispatch();
 	const { isLoading, recipes, error } = useAppSelector(
 		(state) => state.recipesAll
@@ -25,11 +52,11 @@ const Discover: FC = () => {
 
 	useEffect(() => {
 		// Apply filters here
-		dispatch(fetchRecipes());
+		dispatch(fetchRecipes(query));
 		return () => {
 			dispatch(clearRecipes());
 		};
-	}, [dispatch, searchValue, setSearchValue]);
+	}, [dispatch, setQuery, query]);
 
 	useEffect(() => {
 		if (error && error.message) {
@@ -37,10 +64,61 @@ const Discover: FC = () => {
 		}
 	}, [error]);
 
+	const handleSearchSelect = useCallback(
+		(type: 'badge' | 'ingredient', options: Option[]): void => {
+			const strings = options.map((itm) => itm.value);
+			if (type === 'badge') {
+				setQuery({
+					...query,
+					badge: Array.from(new Set(...query[type], strings)),
+				});
+			} else {
+				setQuery({
+					...query,
+					ingredient: Array.from(new Set(...query[type], strings)),
+				});
+			}
+
+			const arrayQueryList: { type: 'badge' | 'ingredient'; name: string }[] =
+				[];
+
+			strings.forEach((str) => {
+				if (
+					!arrayQueryItems.find((obj) => obj.name === str && obj.type === type)
+				) {
+					arrayQueryList.push({ type: type, name: str });
+				}
+			});
+
+			setArrayQueryItems([...arrayQueryItems, ...arrayQueryList]);
+		},
+		[query, setQuery]
+	);
+
+	const handleRemoveArrayQueryItem = useCallback(
+		(type: 'badge' | 'ingredient', name: string) => {
+			if (type === 'badge') {
+				setQuery({
+					...query,
+					badge: query.badge.filter((itm) => itm !== name),
+				});
+			} else {
+				setQuery({
+					...query,
+					ingredient: query.ingredient.filter((itm) => itm !== name),
+				});
+			}
+			setArrayQueryItems(arrayQueryItems.filter((itm) => itm.name !== name));
+		},
+		[query, arrayQueryItems]
+	);
+
 	return (
 		<ScreenWrapper>
 			<div className='filter-section'>
-				<SearchBar searchValue={(value) => setSearchValue(value)} />
+				<SearchBar
+					searchValue={(value) => setQuery({ ...query, search: value })}
+				/>
 				<div className='filters'>
 					<FilterRangeSelect
 						label={'Rating'}
@@ -49,9 +127,9 @@ const Discover: FC = () => {
 							maxEdge: 10,
 						}}
 						onApply={(min, max) =>
-							console.log('Applying to', 'Rating', min, max)
+							setQuery({ ...query, ratingRng: `${min}:${max}` })
 						}
-						onReset={() => console.log('Clear Filter')}
+						onReset={() => setQuery({ ...query, ratingRng: '' })}
 					/>
 
 					<FilterRangeSelect
@@ -61,9 +139,9 @@ const Discover: FC = () => {
 							maxEdge: 1000,
 						}}
 						onApply={(min, max) =>
-							console.log('Applying to', 'Rating', min, max)
+							setQuery({ ...query, timeRng: `${min}:${max}` })
 						}
-						onReset={() => console.log('Clear Filter')}
+						onReset={() => setQuery({ ...query, timeRng: '' })}
 					/>
 					<FilterRangeSelect
 						label={'Difficulty'}
@@ -72,9 +150,9 @@ const Discover: FC = () => {
 							maxEdge: 10,
 						}}
 						onApply={(min, max) =>
-							console.log('Applying to', 'Rating', min, max)
+							setQuery({ ...query, difficultyRng: `${min}:${max}` })
 						}
-						onReset={() => console.log('Clear Filter')}
+						onReset={() => setQuery({ ...query, difficultyRng: '' })}
 					/>
 					<FilterRangeSelect
 						label={'Servings'}
@@ -83,20 +161,32 @@ const Discover: FC = () => {
 							maxEdge: 50,
 						}}
 						onApply={(min, max) =>
-							console.log('Applying to', 'Rating', min, max)
+							setQuery({ ...query, servesRng: `${min}:${max}` })
 						}
-						onReset={() => console.log('Clear Filter')}
+						onReset={() => setQuery({ ...query, servesRng: '' })}
 					/>
-
-					<FilterBadgeSelect />
-
+					<FilterBadgeSelect
+						onApply={(options) => handleSearchSelect('badge', options)}
+					/>
+					<FilterIngredientSelect
+						onApply={(options) => handleSearchSelect('ingredient', options)}
+					/>
 					<SortSelect
-						order='ascending'
-						sortBy='dateAdded'
+						order={query.order}
+						sortBy={query.sort}
 						onApply={(order: OrderType, sortBy: SortByType): void => {
-							console.log('Hello');
+							setQuery({ ...query, sort: sortBy, order: order });
 						}}
 					/>
+				</div>
+				<div className='applied-badges-ingredients'>
+					{arrayQueryItems.map(({ type, name }, i) => (
+						<Pill
+							color={type === 'badge' ? 'green' : 'orange'}
+							close={() => handleRemoveArrayQueryItem(type, name)}
+							text={name}
+						/>
+					))}
 				</div>
 			</div>
 			<div className='items'>

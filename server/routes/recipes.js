@@ -7,8 +7,6 @@ const generateDBQuery = require('../util/generateDBQuery');
 
 router.get('/', async (req, res) => {
 	try {
-		console.log(req.query);
-
 		const { query } = req;
 
 		if (!query.sort || !query.order) {
@@ -17,14 +15,18 @@ router.get('/', async (req, res) => {
 		}
 
 		// Check if query includes search, then call the method for fuzzy search or just apply normal filters.
+		const generatedQuery = generateDBQuery(query);
+
+		console.log('Recipe query:', JSON.stringify(generatedQuery, null, 4));
+
 		const recipes = query.search
 			? await Recipe.fuzzySearch(
 					{ query: query.search, prefixOnly: true, minSize: 4 },
-					generateDBQuery(query)
+					generatedQuery
 			  ).sort({
 					[query.sort]: query.order,
 			  })
-			: await Recipe.find(generateDBQuery(query)).sort({
+			: await Recipe.find(generatedQuery).sort({
 					[query.sort]: query.order,
 			  });
 

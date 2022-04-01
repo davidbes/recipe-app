@@ -42,10 +42,6 @@ const recipeSchema = new Schema({
 			name: String,
 			unit: String,
 			amount: Number,
-			category: {
-				id: String,
-				name: String,
-			},
 		},
 	],
 });

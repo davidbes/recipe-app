@@ -24,5 +24,6 @@ export { default as RadioButton } from './RadioButton/RadioButton';
 export { default as SearchSelect } from './SearchSelect/SearchSelect';
 export { default as SortSelect } from './FilterSelects/SortSelect';
 export { default as FilterBadgeSelect } from './FilterSelects/FilterBadgeSelect';
+export { default as FilterIngredientSelect } from './FilterSelects/FilterIngredientSelect';
 export { default as FilterRangeSelect } from './FilterSelects/FilterRangeSelect';
 export { default as IconDropdownButton } from './IconDropdownButton/IconDropdownButton';

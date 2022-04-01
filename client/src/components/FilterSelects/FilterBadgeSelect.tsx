@@ -3,21 +3,24 @@ import { useAppDispatch, useAppSelector, useClickOutisde } from 'hooks';
 import './FilterSelects.scss';
 import { Button } from 'components';
 import SearchSelect from 'components/SearchSelect/SearchSelect';
-import { fetchBadges } from 'features';
+import { clearBadges, fetchBadges } from 'features';
 import { Option } from '../SearchSelect/SearchSelect';
 
-interface Props {}
+interface Props {
+	onApply: (badges: Option[]) => void;
+}
 
-const FilterBadgeSelect: FC<Props> = ({}: Props) => {
+const FilterBadgeSelect: FC<Props> = ({ onApply }: Props) => {
 	const [open, setOpen] = useState(false);
-
 	const [selected, setSelected] = useState<Option[]>([]);
 
 	const dispatch = useAppDispatch();
 
 	const ref = useRef<HTMLDivElement>(null);
+
 	useClickOutisde(ref, () => {
 		setOpen(false);
+		setSelected([]);
 	});
 
 	const { isLoading, badges, error } = useAppSelector(
@@ -37,7 +40,9 @@ const FilterBadgeSelect: FC<Props> = ({}: Props) => {
 
 	const handleAddOption = useCallback(
 		(option) => {
+			console.log(option);
 			setSelected([...selected, option]);
+			dispatch(clearBadges());
 		},
 		[selected, setSelected]
 	);
@@ -48,6 +53,7 @@ const FilterBadgeSelect: FC<Props> = ({}: Props) => {
 				className={`filter-select-button ${open ? 'open' : ''}`}
 				onClick={() => {
 					if (open) {
+						setSelected([]);
 					}
 					setOpen(!open);
 				}}
@@ -58,6 +64,7 @@ const FilterBadgeSelect: FC<Props> = ({}: Props) => {
 				<div className='filter-select-window'>
 					<h3>Search for badges</h3>
 					<SearchSelect
+						placeholder='Search for badge...'
 						selectedOptions={selected}
 						options={badges.map(({ _id, name }) => ({ id: _id, value: name }))}
 						loadingOptions={isLoading}
@@ -69,6 +76,8 @@ const FilterBadgeSelect: FC<Props> = ({}: Props) => {
 						<Button
 							size='small'
 							onClick={() => {
+								onApply(selected);
+								setSelected([]);
 								setOpen(false);
 							}}
 						>
@@ -80,6 +89,7 @@ const FilterBadgeSelect: FC<Props> = ({}: Props) => {
 							type='tertiary'
 							variation='neutral'
 							onClick={() => {
+								setSelected([]);
 								setOpen(false);
 							}}
 						>

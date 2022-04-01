@@ -15,12 +15,14 @@ interface Props {
 	handleRemoveOption: (id: string) => void;
 	handleSearchValue: (value: string) => void;
 	handleAddOption: (option: Option) => void;
+	placeholder: string;
 }
 
 const SearchSelect: FC<Props> = ({
 	selectedOptions,
 	options,
 	loadingOptions,
+	placeholder,
 	handleRemoveOption,
 	handleSearchValue,
 	handleAddOption,
@@ -42,8 +44,6 @@ const SearchSelect: FC<Props> = ({
 		return () => clearTimeout(typingTimer);
 	}, [value, setValue, sentValue, setSentValue]);
 
-	console.log(loadingOptions, options);
-
 	return (
 		<div className='search-select-wrapper'>
 			<div className='search-select'>
@@ -62,7 +62,7 @@ const SearchSelect: FC<Props> = ({
 					className='search-select-input'
 					type='text'
 					value={value}
-					placeholder='Search badge...'
+					placeholder={placeholder}
 					onChange={(e) => setValue(e.target.value)}
 				/>
 			</div>

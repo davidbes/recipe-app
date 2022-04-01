@@ -15,6 +15,7 @@ app.use('/auth', require('./routes/auth'));
 app.use('/api/recipes', require('./routes/recipes'));
 app.use('/api/profile', require('./routes/profile'));
 app.use('/api/badges', require('./routes/badges'));
+app.use('/api/ingredients', require('./routes/ingredients'));
 
 // Connect to the database.
 mongoose.connect(

@@ -1,20 +1,42 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { OrderType, SortByType } from 'components/FilterSelects/SortSelect';
 import { RecipeListItem } from 'models/Recipe/RecipeListItem.model';
+import queryString from 'query-string';
 
 export const fetchRecipes = createAsyncThunk<
-	RecipeListItem[] | { message: string }
->('recipes/fetchRecipes', async (_, thunkAPI) => {
+	RecipeListItem[] | { message: string },
+	{
+		ratingRng: string;
+		difficultyRng: string;
+		servesRng: string;
+		timeRng: string;
+		search: string;
+		sort: SortByType;
+		order: OrderType;
+		badge: string[];
+		ingredient: string[];
+	}
+>('recipes/fetchRecipes', async (query, thunkAPI) => {
 	const { REACT_APP_SERVER_URL } = process.env;
 	try {
 		const token = localStorage.getItem('token');
-		const response = await fetch(REACT_APP_SERVER_URL + '/api/recipes', {
-			method: 'GET',
-			headers: {
-				Accept: 'application/json',
-				Authorization: token || '',
-				'Content-Type': 'application/json',
-			},
-		});
+
+		const response = await fetch(
+			REACT_APP_SERVER_URL +
+				'/api/recipes?' +
+				queryString.stringify(query, {
+					skipEmptyString: true,
+					arrayFormat: 'none',
+				}),
+			{
+				method: 'GET',
+				headers: {
+					Accept: 'application/json',
+					Authorization: token || '',
+					'Content-Type': 'application/json',
+				},
+			}
+		);
 		const data = await response.json();
 		return response.status === 200 ? data : thunkAPI.rejectWithValue(data);
 	} catch (e) {

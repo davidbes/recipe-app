@@ -9,6 +9,7 @@ import {
 	getSavedRecipesReducer,
 	getUploadedRecipesReducer,
 	searchBadgesReducer,
+	searchIngredientsReducer,
 } from 'features';
 
 export const store = configureStore({
@@ -22,6 +23,7 @@ export const store = configureStore({
 		snackbar: snackbarReducer,
 		modals: modalsReducer,
 		badgesSearch: searchBadgesReducer,
+		ingredientsSearch: searchIngredientsReducer,
 	},
 });
 

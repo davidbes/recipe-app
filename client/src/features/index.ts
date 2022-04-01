@@ -47,3 +47,8 @@ export {
 	fetchBadges,
 	clearBadges,
 } from './searchBadgesSlice/searchBadgesSlice';
+export {
+	default as searchIngredientsReducer,
+	fetchIngredients,
+	clearIngredients,
+} from './searchIngredientsSlice/searchIngredientsSlice';
