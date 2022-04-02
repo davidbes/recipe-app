@@ -9,6 +9,7 @@ button {
 	cursor: pointer;
 	font-weight: bold;
 	font-size: 14px;
+	text-transform: uppercase;
 	letter-spacing: 0.02em;
 	justify-content: center;
 	align-items: center;
@@ -17,27 +18,32 @@ button {
 
 	&.info {
 		&.primary {
-			background-color: $leaf-base;
+			background-color: $cardinal-dark-5;
 			color: $bw-100;
 
 			&:hover {
-				background-color: $leaf-light-5;
+				background-color: $cardinal-base;
 			}
 
 			&:active {
+				background-color: $cardinal-light-5;
 			}
 		}
 
 		&.secondary {
 			background-color: white;
-			color: #567838;
-			border: 2px #567838 solid;
+			color: $cardinal-dark-5;
+			border: 2px $cardinal-dark-5 solid;
 
-			&:focus {
-			}
 			&:hover {
+				color: $cardinal-base;
+				border-color: $cardinal-base;
+				background-color: $cardinal-light-15;
 			}
 			&:active {
+				color: $cardinal-base;
+				border-color: $cardinal-base;
+				background-color: $cardinal-light-20;
 			}
 		}
 
@@ -157,7 +163,7 @@ button {
 	}
 
 	&.small {
-		padding: 8px 24px;
+		padding: 6px 24px;
 		font-size: 14px;
 	}
 

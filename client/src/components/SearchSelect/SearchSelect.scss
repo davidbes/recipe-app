@@ -44,6 +44,7 @@
 		overflow-y: scroll;
 		padding: 8px 4px;
 		display: flex;
+		flex-direction: column;
 
 		.result {
 			flex: 1;

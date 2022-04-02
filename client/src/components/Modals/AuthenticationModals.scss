@@ -8,7 +8,7 @@
 	h1 {
 		font-size: 24px;
 		text-align: center;
-		color: $macau-dark-10;
+		color: $cardinal-dark-10;
 	}
 
 	.inputs-section {
@@ -31,12 +31,12 @@
 		gap: 0.2rem;
 
 		span:nth-child(2) {
-			color: $macau-dark-10;
+			color: $cardinal-dark-5;
 			font-weight: 600;
 			cursor: pointer;
 
 			&:hover {
-				color: $macau-base;
+				color: $cardinal-base;
 				text-decoration: underline;
 			}
 		}

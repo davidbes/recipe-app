@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const authorize = require('../middleware/authorize');
-const User = require('../models/user.model');
+const User = require('../models/User.model');
 const Recipe = require('../models/Recipe.model');
 const uploadImage = require('../middleware/uploadImage');
 const processImage = require('../middleware/processImage');

@@ -1,6 +1,7 @@
 import { Icon } from 'components';
 import IconDropdownButton from 'components/IconDropdownButton/IconDropdownButton';
 import { WithTooltip } from 'hoc';
+import { useImageUrl } from 'hooks';
 import { FC } from 'react';
 import { GoKebabVertical } from 'react-icons/go';
 import { Link } from 'react-router-dom';
@@ -33,7 +34,7 @@ const RecipeCard: FC<Props> = ({
 		<div className='recipe-card-wrapper'>
 			<Link className='recipe-card' to={`/recipe/${id}`}>
 				<div className='image'>
-					<img src={image} alt='Recipe' />
+					<img src={useImageUrl(image)} alt='Recipe' />
 				</div>
 				<div className='data'>
 					<div className='text'>

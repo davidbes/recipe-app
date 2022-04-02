@@ -27,3 +27,6 @@ export { default as FilterBadgeSelect } from './FilterSelects/FilterBadgeSelect'
 export { default as FilterIngredientSelect } from './FilterSelects/FilterIngredientSelect';
 export { default as FilterRangeSelect } from './FilterSelects/FilterRangeSelect';
 export { default as IconDropdownButton } from './IconDropdownButton/IconDropdownButton';
+export { default as IngredientItem } from './IngredientItem/IngredientItem';
+export { default as IngredientsList } from './IngredientsList/IngredientsList';
+export { default as InstructionsList } from './InstructionsList/InstructionsList';

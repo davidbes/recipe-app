@@ -3,6 +3,8 @@ const authorize = require('../middleware/authorize');
 const uploadImage = require('../middleware/uploadImage');
 const processImage = require('../middleware/processImage');
 const Recipe = require('../models/Recipe.model');
+const User = require('../models/User.model');
+
 const generateDBQuery = require('../util/generateDBQuery');
 
 router.get('/', async (req, res) => {
@@ -72,13 +74,16 @@ router.get('/:id', async (req, res) => {
 			id: recipe.id,
 			name: recipe.name,
 			image: recipe.image,
-			authorName: recipe.author.name,
-			authorId: recipe.author.id,
+			author: recipe.author,
 			badges: recipe.badges,
-			time: Math.round(recipe.averages.time),
+			time: recipe.averages.time,
 			serves: recipe.averages.serves,
 			difficulty: recipe.averages.difficulty,
 			rating: recipe.averages.rating,
+			instructions: recipe.instructions,
+			instructionSections: recipe.instructionSections,
+			ingredients: recipe.ingredients,
+			badges: recipe.badges,
 		};
 
 		res.json(returnData);
@@ -88,11 +93,74 @@ router.get('/:id', async (req, res) => {
 	}
 });
 
-router.post('/:id/rate', async (req, res) => {});
+router.post('/:id/rate', authorize, async (req, res) => {
+	try {
+		const recipeId = req.params.id;
+
+		const recipe = await Recipe.findById(recipeId);
+
+		if (!recipe) {
+			return res.status(404).json({ message: "Recipe doesn't exist!" });
+		}
+
+		// get all feedbacks
+		// generate new averages
+		// all the feedback in the feedbacks array
+	} catch (error) {}
+});
 
 router.post('/', authorize, uploadImage, processImage, async (req, res) => {
 	try {
-		res.json({ message: 'Helo' });
+		const {
+			imageUrl,
+			userId,
+			body: {
+				name,
+				instructions,
+				ingredients,
+				badges,
+				serves,
+				duration,
+				difficulty,
+				instructionSections,
+			},
+		} = req;
+
+		console.log(req.body);
+
+		const author = await User.findById(userId).select(
+			'firstName lastName id image'
+		);
+
+		const authorObj = {
+			id: author.id,
+			name: author.firstName + ' ' + author.lastName,
+			image: author.image,
+		};
+		const dateAdded = new Date().toISOString();
+
+		const newRecipe = new Recipe({
+			author: authorObj,
+			name: name,
+			image: imageUrl,
+			averages: {
+				time: duration,
+				serves: serves,
+				difficulty: difficulty,
+				rating: 10,
+			},
+			dateAdded: dateAdded,
+			feedback: [],
+			badges: badges || [],
+			instructionSection: instructionSections || [],
+			instructions: instructions || [],
+			ingredients: ingredients || [],
+			language: 'EN',
+		});
+
+		const addedRecipe = await newRecipe.save();
+
+		res.json(addedRecipe);
 	} catch (error) {}
 });
 

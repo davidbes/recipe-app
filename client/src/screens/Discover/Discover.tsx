@@ -68,20 +68,27 @@ const Discover: FC = () => {
 		(type: 'badge' | 'ingredient', options: Option[]): void => {
 			const strings = options.map((itm) => itm.value);
 			if (type === 'badge') {
+				const mergedArr = [...strings, ...query.badge];
+				const uniqeArr = mergedArr.filter(function (item, pos, self) {
+					return self.indexOf(item) == pos;
+				});
 				setQuery({
 					...query,
-					badge: Array.from(new Set(...query[type], strings)),
+					badge: uniqeArr,
 				});
 			} else {
+				const mergedArr = [...strings, ...query.ingredient];
+				const uniqeArr = mergedArr.filter(function (item, pos, self) {
+					return self.indexOf(item) == pos;
+				});
 				setQuery({
 					...query,
-					ingredient: Array.from(new Set(...query[type], strings)),
+					ingredient: uniqeArr,
 				});
 			}
 
 			const arrayQueryList: { type: 'badge' | 'ingredient'; name: string }[] =
 				[];
-
 			strings.forEach((str) => {
 				if (
 					!arrayQueryItems.find((obj) => obj.name === str && obj.type === type)

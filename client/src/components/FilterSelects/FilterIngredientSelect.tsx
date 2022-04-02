@@ -41,7 +41,6 @@ const FilterIngredientSelect: FC<Props> = ({ onApply }: Props) => {
 
 	const handleAddOption = useCallback(
 		(option) => {
-			console.log(option);
 			setSelected([...selected, option]);
 			dispatch(clearIngredients());
 		},

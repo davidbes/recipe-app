@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwtGenerator = require('../util/jwtGenerator');
 const authorize = require('../middleware/authorize');
 const { validateRegister, validateLogin } = require('../middleware/validate');
-const User = require('../models/user.model');
+const User = require('../models/User.model');
 
 router.post('/register', validateRegister, async (req, res) => {
 	try {

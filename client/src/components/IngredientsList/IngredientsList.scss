@@ -1,0 +1,26 @@
+@use '../../sass/variables' as *;
+
+.ingredients-list-wrapper {
+	width: 320px;
+	min-width: 320px;
+	padding: 10px;
+
+	.ingredients-header {
+		display: flex;
+		justify-content: space-between;
+		h3 {
+			font-size: 18px;
+			font-weight: 700;
+		}
+		span {
+			font-weight: 500;
+			color: $bw-50;
+		}
+	}
+
+	.ingredients-list {
+		display: flex;
+		flex-flow: column nowrap;
+		padding-top: 10px;
+	}
+}
