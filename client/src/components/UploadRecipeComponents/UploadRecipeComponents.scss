@@ -1,0 +1,87 @@
+@use '../../sass/variables' as *;
+.form-content {
+	flex: 1;
+	padding-top: 1rem;
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 2rem;
+	align-items: center;
+
+	.upload-image-section {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex: 1;
+		border-radius: 24px;
+
+		.uploaded-image {
+			width: 300px;
+			height: 300px;
+			border-radius: 24px;
+			position: relative;
+
+			img {
+				top: 0;
+				left: 0;
+				position: absolute;
+				height: 300px;
+				width: 100%;
+				object-fit: cover;
+				border-radius: 24px;
+			}
+
+			.close-image-button {
+				position: absolute;
+				top: 10px;
+				right: 10px;
+			}
+		}
+
+		.input-image {
+			width: 300px;
+			height: 300px;
+			border-radius: 24px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+			border: 3px dashed $cardinal-base;
+
+			&:hover,
+			&.active {
+				background-color: $cardinal-light-20;
+			}
+			div {
+				font-size: 14px;
+				display: flex;
+				flex-flow: column nowrap;
+				justify-content: start;
+				align-items: center;
+				text-align: center;
+				// gap: 1rem;
+			}
+		}
+	}
+
+	input {
+		width: 300px;
+		font-size: 16px;
+		text-align: center;
+		border: none;
+		outline: none;
+		margin-bottom: 0.2rem;
+		padding: 10px;
+		border-bottom: 1px solid $cardinal-dark-5;
+		font-weight: bold;
+
+		&:focus {
+			border-width: 2px;
+		}
+	}
+
+	.error-section {
+		height: 2rem;
+		text-align: center;
+		color: $cardinal-base;
+	}
+}

@@ -189,7 +189,7 @@ const Discover: FC = () => {
 				<div className='applied-badges-ingredients'>
 					{arrayQueryItems.map(({ type, name }, i) => (
 						<Pill
-							color={type === 'badge' ? 'green' : 'orange'}
+							color={type === 'badge' ? 'green' : 'red'}
 							close={() => handleRemoveArrayQueryItem(type, name)}
 							text={name}
 						/>

@@ -11,6 +11,11 @@
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
+
+		.right-actions {
+			display: flex;
+			gap: 8px;
+		}
 	}
 
 	.profile-data {

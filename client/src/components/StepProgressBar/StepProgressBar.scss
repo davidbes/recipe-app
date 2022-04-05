@@ -1,0 +1,76 @@
+@use '../../sass/variables' as *;
+
+$fill_color: $cardinal-base;
+$track_color: $bw-70;
+
+.step-progress-bar {
+	display: flex;
+	align-items: center;
+	width: 450px;
+	height: 70px;
+	margin: auto;
+
+	.progress-step__wrapper {
+		display: flex;
+		flex-flow: column nowrap;
+		position: relative;
+
+		.progress-step__number {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 50%;
+			height: 30px;
+			width: 30px;
+			color: $track_color;
+			border: 3px solid $track_color;
+		}
+
+		.progress-step__label {
+			position: absolute;
+			font-size: 12px;
+			top: 110%;
+			left: 50%;
+			transform: translateX(-50%);
+			text-align: center;
+			color: $track_color;
+		}
+
+		&.active {
+			.progress-step__number {
+				color: $fill_color;
+				background-color: $bw-100;
+				border-color: $fill_color;
+				border-width: 4px;
+			}
+			.progress-step__label {
+				font-size: 14px;
+				font-weight: 500;
+				color: $fill_color;
+			}
+		}
+
+		&.done {
+			.progress-step__number {
+				background-color: $fill_color;
+				border: none;
+				color: $bw-100;
+			}
+			.progress-step__label {
+				font-size: 12px;
+				font-weight: 500;
+				color: $cardinal-dark-5;
+			}
+		}
+	}
+
+	.progress-step__connector {
+		background-color: $track_color;
+		height: 3px;
+		flex: 1;
+		&.active {
+			background-color: $fill_color;
+			height: 5px;
+		}
+	}
+}

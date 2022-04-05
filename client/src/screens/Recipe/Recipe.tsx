@@ -106,13 +106,15 @@ const Recipe: FC = () => {
 							]}
 						/> */}
 
-						<div className='recipe-main-section'>
-							<IngredientsList ingredients={recipe.ingredients} />
-							<InstructionsList
-								instructions={recipe.instructions}
-								sections={recipe.instructionSections}
-							/>
-						</div>
+						{recipe.ingredients.length > 0 && recipe.instructions.length > 0 && (
+							<div className='recipe-main-section'>
+								<IngredientsList ingredients={recipe.ingredients} />
+								<InstructionsList
+									instructions={recipe.instructions}
+									sections={recipe.instructionSections}
+								/>
+							</div>
+						)}
 					</div>
 				)) ||
 					'Profile not available'}

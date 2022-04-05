@@ -5,17 +5,20 @@ const initialState: {
 	registerModal: boolean;
 	loginModal: boolean;
 	badgesModal: boolean;
+	uploadRecipeModal: boolean;
 } = {
 	confirmModal: false,
 	registerModal: false,
 	badgesModal: false,
 	loginModal: false,
+	uploadRecipeModal: false,
 };
 
 type ModalType =
 	| 'confirmModal'
 	| 'registerModal'
 	| 'loginModal'
+	| 'uploadRecipeModal'
 	| 'badgesModal';
 
 interface ToggleProps {

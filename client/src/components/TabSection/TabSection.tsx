@@ -18,6 +18,7 @@ const TabSection: FC<Props> = ({ tabs }: Props) => {
 			<div className='header'>
 				{tabs.map((tab, i: number) => (
 					<div
+						key={i}
 						className={`header-item ${active === i ? 'active' : ''}`}
 						onClick={() => setActive(i)}
 					>

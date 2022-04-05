@@ -5,11 +5,11 @@
 	height: auto;
 	display: flex;
 	border: 1px solid $cardinal-dark-10;
-	margin-bottom: 12px;
 	border-radius: 30px;
 	padding: 4px 4px 4px 10px;
 	justify-content: center;
 	align-items: center;
+	margin-bottom: 2px;
 
 	input[type='text'].searchbar {
 		color: $bw-0;
@@ -25,6 +25,6 @@
 
 	&:focus-within {
 		border-bottom: 2px solid $cardinal-dark-5;
-		margin-bottom: 11px;
+		margin-bottom: 1px;
 	}
 }

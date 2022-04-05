@@ -1,8 +1,7 @@
 @use '../../sass/variables' as *;
 
 .ingredients-list-wrapper {
-	width: 320px;
-	min-width: 320px;
+	min-width: 300px;
 	padding: 10px;
 
 	.ingredients-header {

@@ -1,5 +1,5 @@
-import { FC, useEffect, useState } from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { FC, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ScreenWrapper, WithSpinner } from 'hoc';
 import {
 	openSnackbar,
@@ -9,15 +9,16 @@ import {
 	clearSavedRecipes,
 	clearUploadedRecipes,
 	clearProfile,
+	toggleModal,
 } from 'features';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { HiArrowSmLeft } from 'react-icons/hi';
 import {
 	BackButton,
 	Button,
 	ProfileImage,
 	RecipesList,
 	TabSection,
+	UploadRecipeModal,
 } from 'components';
 import './Profile.scss';
 
@@ -26,12 +27,15 @@ const Profile: FC = () => {
 	const dispatch = useAppDispatch();
 
 	// Data
-	const { saved, uploaded, profile, auth } = useAppSelector((state) => ({
-		profile: state.profile,
-		saved: state.recipesSaved,
-		uploaded: state.recipesUploaded,
-		auth: state.auth,
-	}));
+	const { saved, uploaded, profile, auth, modals } = useAppSelector(
+		(state) => ({
+			profile: state.profile,
+			saved: state.recipesSaved,
+			uploaded: state.recipesUploaded,
+			auth: state.auth,
+			modals: state.modals,
+		})
+	);
 
 	// Fetch nescessary data
 	useEffect(() => {
@@ -74,9 +78,24 @@ const Profile: FC = () => {
 					<div className='profile'>
 						<div className='top-actions'>
 							<BackButton />
-							<Button onClick={() => console.log('Button pressed')}>
-								Manage Profile
-							</Button>
+							<div className='right-actions'>
+								<Button onClick={() => console.log('Button pressed')}>
+									Manage
+								</Button>
+								<Button
+									onClick={() =>
+										dispatch(
+											toggleModal({
+												modal: 'uploadRecipeModal',
+												toggleOpen: true,
+											})
+										)
+									}
+								>
+									Upload Recipe
+								</Button>
+								{modals.uploadRecipeModal && <UploadRecipeModal />}
+							</div>
 						</div>
 						<div className='profile-data'>
 							<ProfileImage

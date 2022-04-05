@@ -1,0 +1,21 @@
+.upload-modal {
+	display: flex;
+	justify-content: center;
+	flex-flow: column nowrap;
+	width: 600px;
+	align-items: stretch;
+
+	.heading-section {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.button-section {
+		width: 100%;
+		display: flex;
+		justify-content: flex-end;
+		gap: 0.5rem;
+	}
+}
