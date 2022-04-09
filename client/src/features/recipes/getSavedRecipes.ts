@@ -36,11 +36,11 @@ interface GetSavedRecipesState {
 	} | null;
 }
 
-const initialState = {
+const initialState: GetSavedRecipesState = {
 	isLoading: false,
 	recipes: [],
 	error: null,
-} as GetSavedRecipesState;
+};
 
 const getSavedRecipes = createSlice({
 	name: 'get recipes',

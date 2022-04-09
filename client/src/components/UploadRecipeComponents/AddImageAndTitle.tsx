@@ -1,6 +1,6 @@
 import { Button, Input } from 'components';
 import { FormDataType } from 'components/Modals/UploadRecipeModal';
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { IoClose } from 'react-icons/io5';
 import { CgSoftwareUpload } from 'react-icons/cg';
@@ -49,8 +49,8 @@ const AddImageAndTitle: FC<Props> = ({
 	}, []);
 
 	const handleNext = useCallback(() => {
-		if (file && title.val && image) {
-			onChangeStep(title.val, file, image, +1);
+		if (title.val && image) {
+			onChangeStep(title.val, file || new File([], 'sth'), image, +1);
 		}
 	}, [file, title, image]);
 

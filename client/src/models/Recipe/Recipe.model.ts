@@ -13,12 +13,8 @@ export interface Recipe {
 	difficulty: number;
 	serves: number;
 	ingredients: Ingredient[];
-	instructionSections: {
-		_id: string;
-		code: string;
-		name: string;
-	}[];
-	instructions: Instruction[];
+	process: ProcessGroup[];
+	userSaved: boolean | null;
 }
 
 export interface Badge {
@@ -26,11 +22,16 @@ export interface Badge {
 	name: string;
 }
 
+export interface ProcessGroup {
+	_id: string;
+	name: string;
+	instructions: Instruction[];
+}
+
 export interface Instruction {
 	_id: string;
+	index: number;
 	instruction: string;
-	code: string;
-	condition: string[];
 	warning: string;
 }
 

@@ -12,13 +12,16 @@ const recipeSchema = new Schema({
 		name: String,
 	},
 	badges: [{ name: String, description: String, image: String }],
-	instructionSections: [{ code: String, name: String }],
-	instructions: [
+	process: [
 		{
-			code: String,
-			instruction: String,
-			conditions: [String], //stores ids of instructions before this can even appear.
-			warning: String,
+			name: String,
+			instructions: [
+				{
+					index: Number,
+					instruction: String,
+					warning: String,
+				},
+			],
 		},
 	],
 	ingredients: [
@@ -40,7 +43,7 @@ const recipeSchema = new Schema({
 			rating: Number,
 			serves: Number,
 			prepTimes: [{ step: String, time: Number }],
-			prepTimeSum: Number,
+			time: Number,
 			difficulty: Number,
 		},
 	],

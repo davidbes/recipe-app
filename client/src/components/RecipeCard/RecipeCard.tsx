@@ -3,7 +3,6 @@ import IconDropdownButton from 'components/IconDropdownButton/IconDropdownButton
 import { WithTooltip } from 'hoc';
 import { useImageUrl } from 'hooks';
 import { FC } from 'react';
-import { GoKebabVertical } from 'react-icons/go';
 import { Link } from 'react-router-dom';
 import './RecipeCard.scss';
 
@@ -83,24 +82,6 @@ const RecipeCard: FC<Props> = ({
 					</div>
 				</div>
 			</Link>
-			<div className='action-button'>
-				<IconDropdownButton
-					theme='light'
-					options={[
-						{
-							label: 'Save',
-							action: () => alert('loggie'),
-						},
-						{
-							label: 'Delete',
-							action: () => alert('loggie'),
-							type: 'danger',
-						},
-					]}
-				>
-					<GoKebabVertical />
-				</IconDropdownButton>
-			</div>
 		</div>
 	);
 };

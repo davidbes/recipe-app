@@ -1,0 +1,78 @@
+@use '../../sass/variables' as *;
+
+$scaling: 7;
+
+.minimap {
+	opacity: 0.5;
+	position: absolute;
+	top: 4rem;
+	right: 1.6rem;
+	z-index: 100;
+	border-radius: 12px;
+	background-color: $cardinal-light-15;
+	border: 1px solid $cardinal-dark-10;
+	transition: 100ms ease-in-out;
+
+	&.hide {
+		opacity: 0;
+		transition: 0.3s ease-in-out;
+	}
+
+	.scroll-window {
+		position: absolute;
+		background-color: rgba($color: white, $alpha: 0.5);
+		border: 1px solid $cardinal-dark-10;
+		border-radius: 10px;
+		z-index: 1001;
+	}
+
+	.minimap-elements {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 1000;
+		height: 100%;
+		width: 100%;
+		display: flex;
+		padding: 0.5rem;
+		gap: 5px;
+
+		.minimap-column {
+			display: flex;
+			flex-flow: column nowrap;
+			gap: 2px;
+			flex: 1;
+
+			.minimap-col-title {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				padding: 1px;
+
+				div {
+					height: 1px;
+					width: 40%;
+					background-color: $cardinal-dark-5;
+				}
+			}
+
+			.minimap-rows {
+				display: flex;
+				flex-flow: column nowrap;
+				gap: 2px;
+				flex: 1;
+
+				.minimap-item {
+					flex: 1;
+					width: 100%;
+					&.blank {
+						background-color: transparent;
+					}
+					&.full {
+						background-color: $cardinal-dark-5;
+					}
+				}
+			}
+		}
+	}
+}

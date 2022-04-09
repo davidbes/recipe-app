@@ -1,5 +1,6 @@
 import { Button } from 'components';
 import { FormDataType } from 'components/Modals/UploadRecipeModal';
+import NumberInput from 'components/NumberInput/NumberInput';
 import { FC, useState } from 'react';
 
 interface Props {
@@ -29,9 +30,26 @@ const FinalizeUploadProcess: FC<Props> = ({
 	return (
 		<>
 			<div className='form-content'>
-				{currDifficulty}
-				{currServes}
-				{currDuration}
+				Recipe finalization
+				<div className='number-inputs'>
+					<NumberInput
+						label='Difficulty'
+						value={difficulty || 0}
+						handleValue={(val: number) => setDifficulty(val)}
+					/>
+					<NumberInput
+						label='Duration'
+						max={400}
+						value={duration || 0}
+						handleValue={(val: number) => setDuration(val)}
+					/>
+					<NumberInput
+						label='Serves'
+						max={50}
+						value={serves || 0}
+						handleValue={(val: number) => setServes(val)}
+					/>
+				</div>
 			</div>
 			<div className='button-section'>
 				<Button

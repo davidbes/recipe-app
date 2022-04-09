@@ -52,3 +52,21 @@ export {
 	fetchIngredients,
 	clearIngredients,
 } from './searchIngredientsSlice/searchIngredientsSlice';
+export {
+	default as uploadRecipeReducer,
+	uploadRecipe,
+	clearUploadRecipeData,
+} from './recipes/uploadRecipeSlice';
+
+export {
+	default as saveRecipeReducer,
+	saveRecipe,
+	clearSaveRecipe,
+	unsaveRecipe,
+} from './recipes/saveRecipeSlice';
+
+export {
+	default as deleteRecipeReducer,
+	deleteRecipe,
+	clearDeleteRecipe,
+} from './recipes/deleteRecipeSlice';

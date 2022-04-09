@@ -24,47 +24,46 @@
 		.instructions-list-container {
 			position: absolute;
 			width: max-content;
+			top: 0;
+			left: 0;
 			padding: 2rem;
+			display: flex;
+			gap: 2rem;
 
-			.instruction-section-header-row {
-				width: 100%;
-				gap: 2rem;
+			.instructions-group {
+				width: 250px;
 				display: flex;
-				color: $cardinal-dark-10;
+				flex-flow: column nowrap;
+				gap: 2rem;
 
-				.instruction-section-header {
+				.instruction-group-header {
 					font-size: 16px;
 					font-weight: 600;
-					flex: 1;
 					text-align: center;
+					color: $cardinal-dark-10;
 				}
-			}
 
-			.instruction-section-row {
-				width: 100%;
-				height: 80px;
-				gap: 2rem;
-				display: flex;
-				align-items: center;
-
-				div {
-					// flex: 1;
-					display: inline-block;
-					text-align: center;
-					margin-top: 15px;
-					align-items: center;
-					justify-content: center;
-					padding: 10px;
+				.instruction-group-items {
 					width: 250px;
-					font-size: 14px;
-				}
+					display: flex;
+					flex-flow: column nowrap;
+					gap: 1rem;
 
-				.instruction-list-item {
-					background-color: white;
-					border-radius: 0.5rem;
-					border: 1px solid $cardinal-dark-5;
-				}
-				.instruction-list-item-blank {
+					.instruction-group-item {
+						background-color: white;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						padding: 1rem;
+						font-size: 14px;
+						border-radius: 0.5rem;
+						border: 1px solid $cardinal-dark-5;
+					}
+
+					div {
+						width: 250px;
+						min-height: 80px;
+					}
 				}
 			}
 		}

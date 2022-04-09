@@ -4,7 +4,8 @@ const uploadImage = require('../middleware/uploadImage');
 const processImage = require('../middleware/processImage');
 const Recipe = require('../models/Recipe.model');
 const User = require('../models/User.model');
-
+const jwt = require('jsonwebtoken');
+const fs = require('fs');
 const generateDBQuery = require('../util/generateDBQuery');
 
 router.get('/', async (req, res) => {
@@ -64,6 +65,16 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
 	try {
+		const jwtToken = req.header('Authorization');
+
+		let savedRecipe = null;
+
+		if (jwtToken) {
+			const userId = jwt.verify(jwtToken, process.env.SECRET).user;
+			const user = await User.findById(userId);
+			savedRecipe = user.saved.indexOf(req.params.id) !== -1;
+		}
+
 		const recipe = await Recipe.findById(req.params.id);
 
 		if (!recipe) {
@@ -80,10 +91,10 @@ router.get('/:id', async (req, res) => {
 			serves: recipe.averages.serves,
 			difficulty: recipe.averages.difficulty,
 			rating: recipe.averages.rating,
-			instructions: recipe.instructions,
-			instructionSections: recipe.instructionSections,
+			process: recipe.process,
 			ingredients: recipe.ingredients,
 			badges: recipe.badges,
+			userSaved: savedRecipe,
 		};
 
 		res.json(returnData);
@@ -122,11 +133,8 @@ router.post('/', authorize, uploadImage, processImage, async (req, res) => {
 				serves,
 				duration,
 				difficulty,
-				instructionSections,
 			},
 		} = req;
-
-		console.log(req.body);
 
 		const author = await User.findById(userId).select(
 			'firstName lastName id image'
@@ -150,18 +158,61 @@ router.post('/', authorize, uploadImage, processImage, async (req, res) => {
 				rating: 10,
 			},
 			dateAdded: dateAdded,
-			feedback: [],
+			feedback: [
+				{
+					userId: author.id,
+					time: duration,
+					serves: serves,
+					difficulty: difficulty,
+					rating: 10,
+				},
+			],
 			badges: badges || [],
-			instructionSection: instructionSections || [],
-			instructions: instructions || [],
-			ingredients: ingredients || [],
+			process: JSON.parse(instructions),
+			ingredients: JSON.parse(ingredients),
 			language: 'EN',
 		});
-
 		const addedRecipe = await newRecipe.save();
 
-		res.json(addedRecipe);
-	} catch (error) {}
+		res.json({ id: addedRecipe.id });
+	} catch (error) {
+		console.log('recipes/ ERROR', error);
+		res.status(500).json({ message: 'Server error occured!' });
+	}
+});
+
+router.delete('/:id', authorize, async (req, res) => {
+	try {
+		// const jwtToken = req.header('Authorization');
+
+		// let savedRecipe = null;
+
+		// if (jwtToken) {
+		// 	const userId = jwt.verify(jwtToken, process.env.SECRET).user;
+		// 	const user = await User.findById(userId);
+		// 	savedRecipe = user.saved.indexOf(req.params.id) !== -1;
+		// }
+
+		const recipe = await Recipe.findById(req.params.id);
+
+		if (!recipe) {
+			return res.status(404).json({ message: 'Recipe not found!' });
+		}
+
+		if (recipe.author.id !== req.userId) {
+			return res.status(403).json({ message: 'Not allowed!' });
+		}
+
+		try {
+			fs.unlinkSync(recipe.image.replace('images', './public'));
+		} catch (err) {}
+
+		const removed = await Recipe.findByIdAndDelete(req.params.id);
+		res.json(removed);
+	} catch (error) {
+		console.log('recipes/ ERROR', error);
+		res.status(500).json({ message: 'Server error occured!' });
+	}
 });
 
 module.exports = router;

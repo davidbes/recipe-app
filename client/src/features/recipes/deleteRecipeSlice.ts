@@ -1,15 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Recipe } from 'models/Recipe/Recipe.model';
+import { Profile } from 'models/Profile/Profile.model';
 
-export const fetchOneRecipe = createAsyncThunk<
-	Recipe | { message: string },
+export const deleteRecipe = createAsyncThunk<
+	Profile | { message: string },
 	string
->('recipe/fetchOneRecipe', async (id, thunkAPI) => {
+>('recipes/deleteRecipe', async (id, thunkAPI) => {
 	const { REACT_APP_SERVER_URL } = process.env;
 	try {
 		const token = localStorage.getItem('token');
 		const response = await fetch(REACT_APP_SERVER_URL + '/api/recipes/' + id, {
-			method: 'GET',
+			method: 'DELETE',
 			headers: {
 				Accept: 'application/json',
 				Authorization: token || '',
@@ -25,44 +25,47 @@ export const fetchOneRecipe = createAsyncThunk<
 	}
 });
 
-interface GetRecipeState {
+interface deleteRecipeState {
 	isLoading: boolean;
-	recipe: Recipe | null;
 	error: {
 		message: string;
 	} | null;
+	isDelete: boolean;
 }
 
-const initialState = {
+const initialState: deleteRecipeState = {
 	isLoading: false,
-	recipe: null,
 	error: null,
-	isSaved: null,
-} as GetRecipeState;
+	isDelete: false,
+};
 
-const getOneRecipeSlice = createSlice({
-	name: 'get one recipe',
+const deleteRecipeSlice = createSlice({
+	name: 'get recipes',
 	initialState,
 	reducers: {
-		clearOneRecipe: (state): void => {
-			state.recipe = null;
+		clearDeleteRecipe: (state): void => {
+			state.error = null;
+			state.isLoading = false;
+			state.isDelete = false;
 		},
 	},
 	extraReducers: (builder): void => {
-		builder.addCase(fetchOneRecipe.fulfilled, (state, { payload }) => {
-			state.recipe = payload as Recipe;
+		builder.addCase(deleteRecipe.fulfilled, (state, { payload }) => {
+			state.isDelete = true;
 			state.isLoading = false;
 		});
-		builder.addCase(fetchOneRecipe.pending, (state) => {
+		builder.addCase(deleteRecipe.pending, (state) => {
+			state.isDelete = false;
 			state.isLoading = true;
 		});
-		builder.addCase(fetchOneRecipe.rejected, (state, action) => {
+		builder.addCase(deleteRecipe.rejected, (state, action) => {
+			state.isDelete = false;
 			state.isLoading = false;
 			state.error = action.payload as { message: string };
 		});
 	},
 });
 
-export const { clearOneRecipe } = getOneRecipeSlice.actions;
+export const { clearDeleteRecipe } = deleteRecipeSlice.actions;
 
-export default getOneRecipeSlice.reducer;
+export default deleteRecipeSlice.reducer;

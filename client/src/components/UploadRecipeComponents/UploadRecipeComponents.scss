@@ -4,7 +4,7 @@
 	padding-top: 1rem;
 	display: flex;
 	flex-flow: column nowrap;
-	gap: 2rem;
+	gap: 1rem;
 	align-items: center;
 
 	.upload-image-section {
@@ -63,7 +63,7 @@
 		}
 	}
 
-	input {
+	input.title-input {
 		width: 300px;
 		font-size: 16px;
 		text-align: center;
@@ -83,5 +83,282 @@
 		height: 2rem;
 		text-align: center;
 		color: $cardinal-base;
+	}
+
+	.selected-ingredients {
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: flex-start;
+		height: 250px;
+		overflow-y: scroll;
+		border-bottom: 1px solid $bw-60;
+
+		.selected-ingredient {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			width: 100%;
+
+			.ing-name {
+				flex: 1;
+				width: 250px;
+			}
+		}
+	}
+
+	.add-ingredient {
+		display: flex;
+		margin-bottom: 3rem;
+		gap: 6px;
+		width: 370px;
+		align-items: stretch;
+
+		.ingredient-search-select {
+			flex: 1;
+			position: relative;
+
+			.ingredient-name-input {
+				width: 100%;
+				height: 100%;
+				font-size: 16px;
+				border-bottom: 1px solid $cardinal-base;
+
+				&:focus {
+					border-width: 2px;
+				}
+			}
+
+			.results-list {
+				position: absolute;
+				height: auto;
+				max-height: 100px;
+				overflow-y: scroll;
+				width: 100%;
+				box-shadow: 1px 2px 3px rgba($color: #000000, $alpha: 0.2);
+				z-index: 100;
+				border-radius: 8px;
+
+				.result {
+					cursor: pointer;
+					padding: 10px;
+					&:hover {
+						background-color: $bw-60;
+					}
+
+					&:first-child {
+						border-radius: 8px 8px 0 0;
+					}
+					&:last-child {
+						border-radius: 0 0 8px 8px;
+					}
+				}
+				.loading-results {
+					display: flex;
+					height: 100%;
+					align-items: center;
+					justify-content: center;
+					text-align: center;
+					margin: auto;
+				}
+
+				.zero-matches-found {
+					display: flex;
+					height: 100%;
+					align-items: center;
+					padding: 10px;
+					justify-content: space-between;
+
+					.hide-link {
+						color: $cardinal-base;
+						cursor: pointer;
+						&:hover {
+							text-decoration: underline;
+						}
+					}
+				}
+			}
+		}
+
+		input {
+			border: none;
+			outline: none;
+		}
+
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+
+		/* Firefox */
+		input[type='number'] {
+			-moz-appearance: textfield;
+		}
+
+		.amount-input {
+			text-align: center;
+			width: 50px;
+			font-size: 16px;
+			border-bottom: 1px solid $cardinal-base;
+
+			&:focus {
+				border-width: 2px;
+			}
+		}
+
+		.unit-select {
+			width: 45px;
+			border-bottom: 1px solid $cardinal-base;
+			cursor: pointer;
+			&:focus {
+				border-width: 2px;
+			}
+
+			.unit-input {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: 100%;
+
+				&.empty {
+					color: $bw-40;
+				}
+			}
+
+			.units-options-list {
+				position: absolute;
+				border-radius: 8px;
+				height: 120px;
+				width: 90px;
+				overflow-y: scroll;
+				box-shadow: 1px 2px 3px rgba($color: #000000, $alpha: 0.2);
+
+				.unit-option {
+					background-color: white;
+					padding: 12px;
+
+					&:hover {
+						background-color: $bw-80;
+					}
+				}
+			}
+		}
+	}
+
+	.instruction-sections-wrapper {
+		position: relative;
+		margin-bottom: 1rem;
+
+		.instruction-sections {
+			height: 350px;
+			width: 500px;
+			border-radius: 18px;
+			padding: 2rem;
+			border: 2px solid $cardinal-dark-5;
+			background-color: $cardinal-light-20;
+			position: relative;
+			overflow: scroll;
+			display: flex;
+			justify-content: flex-start;
+			align-items: flex-start;
+			gap: 1rem;
+
+			button {
+				min-width: fit-content;
+			}
+
+			.instruction-section {
+				min-width: 200px;
+				width: 200px;
+				display: flex;
+				flex-flow: column nowrap;
+				align-items: center;
+				gap: 1rem;
+
+				.remove-section {
+					font-size: 12px;
+					color: $cardinal-light-5;
+					margin-bottom: 8px;
+					cursor: pointer;
+
+					&:hover {
+						color: $cardinal-base;
+						text-decoration: underline;
+					}
+				}
+
+				.section-instructions {
+					display: flex;
+					flex-flow: column nowrap;
+					gap: 0.5rem;
+					width: 100%;
+
+					.blank-instruction {
+						padding: 1rem;
+						width: 100%;
+						height: 80px;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						opacity: 0.5;
+						border: 1px solid $cardinal-light-5;
+						border-radius: 8px;
+						cursor: pointer;
+						color: $cardinal-light-15;
+
+						.add-circle {
+							height: 25px;
+							width: 25px;
+							border-radius: 50%;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							background-color: $cardinal-light-5;
+						}
+
+						&:hover {
+							opacity: 1;
+							background-color: $cardinal-light-15;
+						}
+					}
+
+					.section-instruction-item {
+						padding: 1rem;
+						width: 100%;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						border: 1px solid $cardinal-light-5;
+						border-radius: 8px;
+						height: 80px;
+						background-color: white;
+						font-size: 14px;
+					}
+				}
+
+				.instruction-section-name-input {
+					font-size: 16px;
+					border: none;
+					background-color: transparent;
+					border-bottom: 1px solid $cardinal-base;
+					outline: none;
+					margin-bottom: 2px;
+					text-align: center;
+					font-weight: bold;
+					color: $cardinal-dark-5;
+					padding: 8px;
+
+					&:focus {
+						border-width: 2px;
+						margin-bottom: 1px;
+					}
+				}
+			}
+		}
+	}
+	.number-inputs {
+		display: flex;
+		flex-direction: column;
+		gap: 1.3rem;
 	}
 }

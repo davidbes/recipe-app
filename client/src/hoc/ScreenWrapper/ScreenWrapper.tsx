@@ -4,7 +4,7 @@ import { FC } from 'react';
 import './ScreenWrapper.scss';
 
 const ScreenWrapper: FC = ({ children }) => {
-	const { isActive, message } = useAppSelector((state) => state.snackbar);
+	const { isActive, message, type } = useAppSelector((state) => state.snackbar);
 
 	const { registerModal, loginModal } = useAppSelector((state) => state.modals);
 
@@ -14,7 +14,7 @@ const ScreenWrapper: FC = ({ children }) => {
 			<div className='content'>{children}</div>
 
 			<div className='snackbar-wrapper'>
-				<Snackbar message={message} isActive={isActive} />
+				<Snackbar message={message} isActive={isActive} type={type} />
 			</div>
 			{registerModal && <RegisterModal />}
 			{loginModal && <LoginModal />}

@@ -8,6 +8,7 @@ export type { InputState } from './Inputs/Input';
 export { default as Input } from './Inputs/Input';
 export { default as RegisterModal } from './Modals/RegisterModal';
 export { default as UploadRecipeModal } from './Modals/UploadRecipeModal';
+export { default as CookingProcessModal } from './Modals/CookingProcessModal';
 export { default as LoginModal } from './Modals/LoginModal';
 export { default as NavbarItem } from './NavbarItem/NavbarItem';
 export { default as NavigationBar } from './NavigationBar/NavigationBar';
@@ -32,3 +33,7 @@ export { default as IconDropdownButton } from './IconDropdownButton/IconDropdown
 export { default as IngredientItem } from './IngredientItem/IngredientItem';
 export { default as IngredientsList } from './IngredientsList/IngredientsList';
 export { default as InstructionsList } from './InstructionsList/InstructionsList';
+export { default as InstructionDialog } from './InstructionDialog/InstructionDialog';
+export { default as TextArea } from './TextArea/TextArea';
+export { default as NumberInput } from './NumberInput/NumberInput';
+export { default as Minimap } from './Minimap/Minimap';

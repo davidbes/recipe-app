@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface SnackbarState {
 	isActive: boolean;
 	message: string;
-	type: 'error' | 'info' | 'success' | 'warning';
+	type: 'error' | 'info' | 'success';
 }
 
 const initialState: SnackbarState = {
@@ -20,12 +20,12 @@ const snackbarSlice = createSlice({
 			state,
 			action: PayloadAction<{
 				message: string;
-				type: 'error' | 'info' | 'success' | 'warning';
+				type: 'error' | 'info' | 'success';
 			}>
 		) => {
-			state.isActive = true;
-			state.message = action.payload.message;
 			state.type = action.payload.type;
+			state.message = action.payload.message;
+			state.isActive = true;
 		},
 		closeSnackbar: (state) => {
 			state.isActive = false;

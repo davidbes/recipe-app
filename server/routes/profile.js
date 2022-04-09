@@ -63,6 +63,33 @@ router.get('/:id', async (req, res) => {
 
 router.put('/save', authorize, async (req, res) => {
 	try {
+		console.log('here');
+		const recipe = req.query.recipe || '';
+
+		const exists = await Recipe.findById(req.query.recipe);
+
+		if (!exists) {
+			return res.status(403).json({ message: 'Recipe does not exist!' });
+		}
+
+		const user = await User.findByIdAndUpdate(
+			req.userId,
+			{
+				$addToSet: { saved: recipe },
+			},
+			{ new: true }
+		);
+
+		res.status(200).json(user);
+	} catch (error) {
+		console.log('recipes/ ERROR', error);
+		res.status(500).json({ message: 'Server error occured!' });
+	}
+});
+
+router.put('/unsave', authorize, async (req, res) => {
+	try {
+		console.log('here');
 		const recipe = req.query.recipe || '';
 
 		const exists = await Recipe.findById(req.query.recipe);
@@ -72,7 +99,7 @@ router.put('/save', authorize, async (req, res) => {
 		}
 
 		const user = await User.findByIdAndUpdate(req.userId, {
-			$addToSet: { saved: recipe },
+			$pull: { saved: recipe },
 		});
 
 		res.status(200).json(user);
@@ -123,7 +150,7 @@ router.get('/:id/uploaded', async (req, res) => {
 
 		const recipes = await Recipe.find({
 			'author.id': id,
-		});
+		}).sort('-dateAdded');
 
 		res.json(
 			recipes.map((recipe) => {

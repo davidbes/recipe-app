@@ -1,0 +1,37 @@
+@use '../../sass/variables' as *;
+
+.number-input-wrapper {
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 0.5rem;
+	flex: 1;
+
+	&:focus-within {
+		.number-input-label {
+			font-size: 14px;
+			color: $cardinal-dark-5;
+		}
+	}
+
+	.number-input-label {
+		font-size: 14px;
+		color: $cardinal-dark-10;
+	}
+
+	.number-input-with-buttons {
+		display: flex;
+		gap: 0.3rem;
+		align-items: stretch;
+
+		input {
+			width: 100px;
+			border: none;
+			border-bottom: 1px solid $cardinal-dark-5;
+			text-align: center;
+			outline: none;
+			font-size: 16px;
+			font-weight: 500;
+			color: $cardinal-dark-10;
+		}
+	}
+}
