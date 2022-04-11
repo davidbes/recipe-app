@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo } from 'react';
+import { FC, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ScreenWrapper, WithSpinner, WithTooltip } from 'hoc';
 import { useAppDispatch, useAppSelector } from 'hooks';

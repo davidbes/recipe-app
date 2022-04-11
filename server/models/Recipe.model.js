@@ -39,7 +39,7 @@ const recipeSchema = new Schema({
 	},
 	feedback: [
 		{
-			user: String,
+			userId: String,
 			rating: Number,
 			serves: Number,
 			prepTimes: [{ step: String, time: Number }],

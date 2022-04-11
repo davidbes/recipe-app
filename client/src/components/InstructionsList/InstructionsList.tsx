@@ -10,7 +10,7 @@ import {
 	useState,
 } from 'react';
 import { displayPartsToString } from 'typescript';
-import { groupData } from 'utils';
+import { fillWithBlanks } from 'utils';
 import './InstructionsList.scss';
 
 interface Props {
@@ -42,7 +42,7 @@ const defaultMinimapData = {
 };
 
 const InstructionsList: FC<Props> = ({ process }) => {
-	const groupedData: GroupedData[] = groupData(process);
+	const groupedData: GroupedData[] = fillWithBlanks(process);
 	// const [ref, setRef] = useState<any>();
 	const ref = useRef<HTMLDivElement>(null);
 

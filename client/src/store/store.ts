@@ -13,6 +13,7 @@ import {
 	uploadRecipeReducer,
 	saveRecipeReducer,
 	deleteRecipeReducer,
+	rateRecipeReducer,
 } from 'features';
 
 export const store = configureStore({
@@ -30,6 +31,7 @@ export const store = configureStore({
 		uploadRecipe: uploadRecipeReducer,
 		saveRecipe: saveRecipeReducer,
 		deleteRecipe: deleteRecipeReducer,
+		rateRecipe: rateRecipeReducer,
 	},
 });
 

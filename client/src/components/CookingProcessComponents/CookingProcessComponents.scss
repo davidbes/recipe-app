@@ -1,3 +1,177 @@
+@use '../../sass/variables' as *;
 
+.cooking-process-content {
+	padding: 1rem;
+	flex: 1;
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
 
+	.checkbox-items {
+		padding: 1rem;
+		width: 400px;
+		display: flex;
+		flex-flow: column nowrap;
+		max-height: 400px;
+		overflow-y: scroll;
+		border-bottom: 1px solid black;
 
+		.checkbox-ingredient-item {
+			display: flex;
+			flex: 1;
+
+			.checkbox-ingredient-name {
+				flex: 1;
+				text-transform: capitalize;
+			}
+		}
+	}
+
+	.rate-recipe-step {
+		display: flex;
+		flex-flow: column nowrap;
+		gap: 1.5rem;
+
+		.section {
+			display: flex;
+			flex-flow: column nowrap;
+			align-items: center;
+			gap: 0.1rem;
+
+			span {
+				font-size: 16px;
+				font-weight: 500;
+
+				&.section-title {
+					color: $cardinal-dark-5;
+					font-size: 16px;
+					font-weight: 500;
+				}
+			}
+		}
+	}
+
+	.cooking-process-step-container {
+		flex: 1 1;
+		display: flex;
+		justify-content: flex-start;
+		align-items: stretch;
+		width: 100%;
+
+		.process-heading-column {
+			width: 100px;
+			display: flex;
+			flex-flow: column nowrap;
+
+			.instructions-header {
+				display: flex;
+				align-items: center;
+				flex: 1;
+			}
+		}
+
+		.process-instructions-wrapper {
+			padding: 1rem;
+			flex: 1;
+			border: 1px solid $cardinal-dark-5;
+			display: flex;
+			flex-flow: column nowrap;
+			gap: 1rem;
+			background-color: $cardinal-light-20;
+			overflow-x: scroll;
+
+			.instructions-row {
+				display: flex;
+				align-items: center;
+				flex: 1;
+				gap: 1rem;
+				min-height: 80px;
+
+				.instruction-in-process {
+					height: 100%;
+					min-width: 250px;
+					flex: 7;
+					background-color: white;
+					position: relative;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+
+					&.active {
+						cursor: pointer;
+						border-radius: 12px;
+						border: 1px solid $cardinal-dark-5;
+					}
+
+					&.blank {
+						background-color: $cardinal-light-20;
+					}
+
+					&:hover {
+						.instruction-hover {
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							font-weight: bold;
+						}
+					}
+
+					&:active {
+						.instruction-hover {
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							font-weight: bold;
+							background-color: rgba($color: $cardinal-light-20, $alpha: 0.3);
+						}
+					}
+					.instruction-hover {
+						display: none;
+						position: absolute;
+						width: 100%;
+						height: 100%;
+						top: 0;
+						left: 0;
+						border-radius: 12px;
+						color: $cardinal-dark-5;
+						background-color: rgba($color: $cardinal-light-20, $alpha: 0.8);
+					}
+				}
+
+				.upcoming-instruction {
+					height: 80%;
+					flex: 6;
+					font-size: 12px;
+					background-color: $cardinal-light-15;
+					border: 1px solid $cardinal-light-10;
+					border-radius: 12px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					color: $cardinal-base;
+					&.blank {
+						background: transparent;
+						border: none;
+					}
+				}
+			}
+		}
+	}
+
+	.check-all {
+		margin-top: 5px;
+		color: $cardinal-base;
+		cursor: pointer;
+		-webkit-touch-callout: none; /* iOS Safari */
+		-webkit-user-select: none; /* Safari */
+		-khtml-user-select: none; /* Konqueror HTML */
+		-moz-user-select: none; /* Old versions of Firefox */
+		-ms-user-select: none; /* Internet Explorer/Edge */
+		user-select: none;
+
+		&:hover {
+			color: $cardinal-light-5;
+			text-decoration: underline;
+		}
+	}
+}

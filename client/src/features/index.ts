@@ -70,3 +70,9 @@ export {
 	deleteRecipe,
 	clearDeleteRecipe,
 } from './recipes/deleteRecipeSlice';
+
+export {
+	default as rateRecipeReducer,
+	rateRecipe,
+	clearRateRecipe,
+} from './recipes/rateRecipeSlice';

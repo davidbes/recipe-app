@@ -37,3 +37,5 @@ export { default as InstructionDialog } from './InstructionDialog/InstructionDia
 export { default as TextArea } from './TextArea/TextArea';
 export { default as NumberInput } from './NumberInput/NumberInput';
 export { default as Minimap } from './Minimap/Minimap';
+export { default as Checkbox } from './Checkbox/Checkbox';
+export { default as Slider } from './Slider/Slider';

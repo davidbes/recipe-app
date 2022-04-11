@@ -1,0 +1,69 @@
+@use '../../sass/variables' as *;
+
+$slider-length: 200px;
+$track-color: $cardinal-light-10;
+$range-color: $cardinal-base;
+$text-color: $bw-10;
+
+.slider-container {
+	display: flex;
+	gap: 0.5rem;
+
+	input[type='range'] {
+		width: $slider-length;
+		-webkit-appearance: none;
+		appearance: none;
+		background: transparent;
+		cursor: pointer;
+
+		/***** Track Styles *****/
+		/***** Chrome, Safari, Opera, and Edge Chromium *****/
+		&::-webkit-slider-runnable-track {
+			background: $track-color;
+			height: 5px;
+			border-radius: 3px;
+		}
+
+		/******** Firefox ********/
+		&::-moz-range-track {
+			background: $track-color;
+			height: 5px;
+			border-radius: 3px;
+		}
+
+		&::-webkit-slider-thumb {
+			-webkit-appearance: none; /* Override default look */
+			appearance: none;
+			margin-top: -7px; /* Centers thumb on the track */
+			background-color: $range-color;
+			border: none;
+			border-radius: 50%;
+			cursor: pointer;
+			height: 18px;
+			width: 18px;
+			pointer-events: all;
+			position: relative;
+		}
+		&::-moz-range-thumb {
+			-webkit-appearance: none; /* Override default look */
+			appearance: none;
+			margin-top: -12px; /* Centers thumb on the track */
+			background-color: $range-color;
+			border: none;
+			border-radius: 50%;
+			cursor: pointer;
+			height: 18px;
+			width: 18px;
+			margin-top: 4px;
+			pointer-events: all;
+			position: relative;
+		}
+	}
+	.edge-number {
+		width: 30px;
+		text-align: left;
+		&:first-of-type {
+			text-align: right;
+		}
+	}
+}

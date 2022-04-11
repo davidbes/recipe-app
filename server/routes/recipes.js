@@ -113,11 +113,52 @@ router.post('/:id/rate', authorize, async (req, res) => {
 		if (!recipe) {
 			return res.status(404).json({ message: "Recipe doesn't exist!" });
 		}
+		const { feedback, averages } = recipe;
 
+		// console.log(req.body, feedback, averages);
+
+		const newFeedback = {
+			...req.body,
+			userId: req.userId,
+		};
+
+		const totalValues = {
+			time: 0,
+			difficulty: 0,
+			serves: 0,
+			rating: 0,
+		};
+
+		const totals = [...feedback, newFeedback].reduce((totalValues, next) => {
+			return {
+				time: totalValues.time + next.time,
+				difficulty: totalValues.difficulty + next.difficulty,
+				serves: totalValues.serves + next.serves,
+				rating: totalValues.rating + next.rating,
+			};
+		}, totalValues);
+
+		const newAverages = {
+			time: Math.round((totals.time / (feedback.length + 1)) * 100) / 100,
+			difficulty:
+				Math.round((totals.difficulty / (feedback.length + 1)) * 100) / 100,
+			serves: Math.round((totals.serves / (feedback.length + 1)) * 100) / 100,
+			rating: Math.round((totals.rating / (feedback.length + 1)) * 100) / 100,
+		};
+
+		const updatedRecipe = await Recipe.findByIdAndUpdate(recipeId, {
+			averages: newAverages, // new averages
+			$push: { feedback: newFeedback }, // new feedback
+		});
+
+		res.json({ updatedRecipe });
 		// get all feedbacks
 		// generate new averages
 		// all the feedback in the feedbacks array
-	} catch (error) {}
+	} catch (error) {
+		console.log('recipes/ ERROR', error);
+		res.status(500).json({ message: 'Server error occured!' });
+	}
 });
 
 router.post('/', authorize, uploadImage, processImage, async (req, res) => {
@@ -160,7 +201,7 @@ router.post('/', authorize, uploadImage, processImage, async (req, res) => {
 			dateAdded: dateAdded,
 			feedback: [
 				{
-					userId: author.id,
+					userId: authorObj.id,
 					time: duration,
 					serves: serves,
 					difficulty: difficulty,

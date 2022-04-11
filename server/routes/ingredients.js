@@ -7,8 +7,6 @@ const Ingredient = require('../models/Ingredient.model');
 
 router.get('/', async (req, res) => {
 	try {
-		console.log(req.query);
-
 		const { query } = req;
 
 		const ingredients = await Ingredient.fuzzySearch({
@@ -24,35 +22,30 @@ router.get('/', async (req, res) => {
 	}
 });
 
-router.post(
-	'/',
-	authorize,
-	protect,
-	uploadImage,
-	processImage,
-	async (req, res) => {
-		try {
-			const { name } = req.body;
-			const ingredientExists = await Ingredient.findOne({ name: name });
+router.post('/', authorize, protect, async (req, res) => {
+	try {
+		const { name } = req.body;
 
-			if (ingredientExists) {
-				return res.status(401).json({
-					message: 'Ingredient already in database!',
-				});
-			}
+		console.log(name);
+		const ingredientExists = await Ingredient.findOne({ name: name });
 
-			const newIngredient = new Ingredient({
-				name: name,
+		if (ingredientExists) {
+			return res.status(401).json({
+				message: 'Ingredient already in database!',
 			});
-
-			const savedIngredient = await newIngredient.save();
-
-			res.json(savedIngredient);
-		} catch (error) {
-			console.log('recipes/ ERROR', error);
-			res.status(500).json({ message: 'Server error occured!' });
 		}
+
+		const newIngredient = new Ingredient({
+			name: name,
+		});
+
+		const savedIngredient = await newIngredient.save();
+
+		res.json(savedIngredient);
+	} catch (error) {
+		console.log('recipes/ ERROR', error);
+		res.status(500).json({ message: 'Server error occured!' });
 	}
-);
+});
 
 module.exports = router;
