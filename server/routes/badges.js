@@ -7,8 +7,6 @@ const Badge = require('../models/Badge.model');
 
 router.get('/', async (req, res) => {
 	try {
-		console.log(req.query);
-
 		const { query } = req;
 
 		const badges = await Badge.fuzzySearch({
