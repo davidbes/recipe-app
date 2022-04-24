@@ -40,7 +40,7 @@ const getCookingProcessData = (
 							const firstIndex = sec.instructions
 								.slice()
 								.reverse()
-								.findIndex((ins, jdx) => {
+								.findIndex((ins) => {
 									return ins.index < instruction.index;
 								});
 							if (firstIndex >= 0) {

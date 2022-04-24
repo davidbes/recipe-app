@@ -104,7 +104,6 @@ const Profile: FC = () => {
 							/>
 							<div className='profession'>
 								<h2>{profile.profile?.name}</h2>
-								<span>{profile.profile?.title || 'Ordinary cook'}</span>
 							</div>
 						</div>
 						<div className='description'>

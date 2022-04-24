@@ -8,6 +8,7 @@ import FinalizeUploadProcess from 'components/UploadRecipeComponents/FinalizeUpl
 import {
 	clearUploadRecipeData,
 	fetchUploadedRecipes,
+	openSnackbar,
 	toggleModal,
 	uploadRecipe,
 } from 'features';
@@ -16,7 +17,7 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import { Ingredient } from 'models/Recipe/Recipe.model';
 import { FC, useCallback, useEffect, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './UploadRecipeModal.scss';
 
 export interface FormDataType {
@@ -46,36 +47,41 @@ const UploadRecipeModal: FC = () => {
 
 	const dispatch = useAppDispatch();
 
-	const handleFinish = useCallback(() => {
-		const instructions = data.instructions.map((section: Section) => {
-			return {
-				...section,
-				instructions: section.instructions
-					.map((ins, i: number) => {
-						return ins !== 'blank'
-							? {
-									...ins,
-									index: i,
-							  }
-							: ins;
-					})
-					.filter((val) => val !== 'blank'),
-			};
-		});
+	const handleFinish = useCallback(
+		(difficulty, duration, serves) => {
+			const instructions = data.instructions.map((section: Section) => {
+				return {
+					...section,
+					instructions: section.instructions
+						.map((ins, i: number) => {
+							return ins !== 'blank'
+								? {
+										...ins,
+										index: i,
+								  }
+								: ins;
+						})
+						.filter((val) => val !== 'blank'),
+				};
+			});
 
-		const formData = new FormData();
-		formData.append('image', data.image as File);
-		formData.append('name', data.title);
-		formData.append('instructions', JSON.stringify(instructions));
-		formData.append(
-			'ingredients',
-			JSON.stringify(data.ingredients.map(({ _id, ...rest }) => rest))
-		);
-		formData.append('serves', data.serves?.toString() || '0');
-		formData.append('duration', data.duration?.toString() || '0');
-		formData.append('difficulty', data.difficulty?.toString() || '0');
-		dispatch(uploadRecipe(formData));
-	}, [data]);
+			const formData = new FormData();
+			formData.append('image', data.image as File);
+			formData.append('name', data.title);
+			formData.append('instructions', JSON.stringify(instructions));
+			formData.append(
+				'ingredients',
+				JSON.stringify(data.ingredients.map(({ _id, ...rest }) => rest))
+			);
+
+			console.log(data);
+			formData.append('serves', serves.toString() || '0');
+			formData.append('duration', duration.toString() || '0');
+			formData.append('difficulty', difficulty.toString() || '0');
+			dispatch(uploadRecipe(formData));
+		},
+		[data]
+	);
 
 	const { isLoading, isSuccess, recipeId } = useAppSelector(
 		(state) => state.uploadRecipe
@@ -87,6 +93,12 @@ const UploadRecipeModal: FC = () => {
 	useEffect(() => {
 		if (isSuccess && recipeId) {
 			dispatch(toggleModal({ modal: 'uploadRecipeModal', toggleOpen: false }));
+			dispatch(
+				openSnackbar({
+					type: 'success',
+					message: 'Recipe succesfully uploaded!',
+				})
+			);
 			dispatch(fetchUploadedRecipes(userId));
 			navigate('/recipe/' + recipeId);
 			return () => {
@@ -100,7 +112,7 @@ const UploadRecipeModal: FC = () => {
 			<WithSpinner isLoading={isLoading}>
 				<div className='upload-modal'>
 					<div className='heading-section'>
-						<h3>Uplaod recipe</h3>
+						<h3>Upload recipe</h3>
 						<div>
 							<Button
 								type='tertiary'

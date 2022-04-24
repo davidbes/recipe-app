@@ -4,7 +4,11 @@ import NumberInput from 'components/NumberInput/NumberInput';
 import { FC, useState } from 'react';
 
 interface Props {
-	onFinish: () => void;
+	onFinish: (
+		difficulty: number | null,
+		duration: number | null,
+		serves: number | null
+	) => void;
 	onChangeStep: (
 		difficulty: number | null,
 		duration: number | null,
@@ -59,7 +63,9 @@ const FinalizeUploadProcess: FC<Props> = ({
 				>
 					Previous
 				</Button>
-				<Button onClick={onFinish}>Finish</Button>
+				<Button onClick={() => onFinish(difficulty, duration, serves)}>
+					Finish
+				</Button>
 			</div>
 		</>
 	);

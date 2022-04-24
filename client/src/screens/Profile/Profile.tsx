@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { ScreenWrapper, WithSpinner } from 'hoc';
 import {
@@ -11,13 +11,7 @@ import {
 	clearProfile,
 } from 'features';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import {
-	BackButton,
-	Button,
-	ProfileImage,
-	RecipesList,
-	TabSection,
-} from 'components';
+import { BackButton, ProfileImage, RecipesList, TabSection } from 'components';
 import './Profile.scss';
 
 const Profile: FC = () => {
@@ -83,7 +77,6 @@ const Profile: FC = () => {
 							/>
 							<div className='profession'>
 								<h2>{profile.profile?.name}</h2>
-								<span>{profile.profile?.title || 'Ordinary cook'}</span>
 							</div>
 						</div>
 						<div className='description'>

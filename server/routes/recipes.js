@@ -1,11 +1,11 @@
+const fs = require('fs');
+const jwt = require('jsonwebtoken');
 const router = require('express').Router();
 const authorize = require('../middleware/authorize');
 const uploadImage = require('../middleware/uploadImage');
 const processImage = require('../middleware/processImage');
 const Recipe = require('../models/Recipe.model');
 const User = require('../models/User.model');
-const jwt = require('jsonwebtoken');
-const fs = require('fs');
 const generateDBQuery = require('../util/generateDBQuery');
 
 router.get('/', async (req, res) => {

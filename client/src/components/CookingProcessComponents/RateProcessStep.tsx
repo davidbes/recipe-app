@@ -62,6 +62,7 @@ const RateProcessStep: FC<Props> = ({
 							onChange={(val) => setDuration(val)}
 						/>
 						<span>{duration}</span>
+						<span>You spent {userSpent} minutes on this recipe.</span>
 					</div>
 					<div className='section'>
 						<span className='section-title'>Serves</span>
